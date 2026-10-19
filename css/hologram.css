@@ -1,0 +1,114 @@
+/* ==========================================================================
+   HOLOGRAM SPECIAL EFFECTS & HUD STYLING
+   ========================================================================== */
+
+/* Sci-fi HUD Corner Accents */
+.hud-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--neon-cyan);
+  pointer-events: none;
+  z-index: 6;
+}
+.hud-corner-tl { top: 12px; left: 12px; border-top: 2px solid var(--neon-cyan); border-left: 2px solid var(--neon-cyan); }
+.hud-corner-tr { top: 12px; right: 12px; border-top: 2px solid var(--neon-cyan); border-right: 2px solid var(--neon-cyan); }
+.hud-corner-bl { bottom: 12px; left: 12px; border-bottom: 2px solid var(--neon-cyan); border-left: 2px solid var(--neon-cyan); }
+.hud-corner-br { bottom: 12px; right: 12px; border-bottom: 2px solid var(--neon-cyan); border-right: 2px solid var(--neon-cyan); }
+
+/* Hologram Scanlines Overlay */
+.hologram-scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 240, 255, 0.02) 0px,
+    rgba(0, 240, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Perspective Grid Floor at bottom */
+.hologram-grid-floor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 240, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(to top, rgba(0, 240, 255, 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+  transform: perspective(300px) rotateX(65deg);
+  transform-origin: bottom center;
+  mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Emitter Beam Light */
+.hologram-emitter-beam {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 240px;
+  background: radial-gradient(ellipse at bottom, rgba(0, 240, 255, 0.22) 0%, rgba(168, 85, 247, 0.05) 50%, transparent 80%);
+  filter: blur(8px);
+  pointer-events: none;
+  z-index: 1;
+  animation: emitter-flicker 6s infinite ease-in-out;
+}
+
+@keyframes emitter-flicker {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.55; }
+  72% { opacity: 0.9; }
+  85% { opacity: 0.65; }
+}
+
+/* Hologram Status Color Overrides */
+.hologram-stage-card.state-listening {
+  border-color: rgba(16, 185, 129, 0.6);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 25px rgba(16, 185, 129, 0.2);
+}
+.hologram-stage-card.state-listening .hud-corner {
+  border-color: var(--neon-emerald);
+}
+.hologram-stage-card.state-listening .status-dot {
+  background: var(--neon-emerald);
+  box-shadow: 0 0 10px var(--neon-emerald);
+}
+.hologram-stage-card.state-listening .status-pill {
+  color: var(--neon-emerald);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.hologram-stage-card.state-thinking {
+  border-color: rgba(168, 85, 247, 0.6);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 25px rgba(168, 85, 247, 0.25);
+}
+.hologram-stage-card.state-thinking .hud-corner {
+  border-color: var(--neon-purple);
+}
+.hologram-stage-card.state-thinking .status-dot {
+  background: var(--neon-purple);
+  box-shadow: 0 0 10px var(--neon-purple);
+}
+.hologram-stage-card.state-thinking .status-pill {
+  color: var(--neon-purple);
+  border-color: rgba(168, 85, 247, 0.4);
+}
+
+.hologram-stage-card.state-speaking {
+  border-color: rgba(0, 240, 255, 0.8);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 35px var(--neon-cyan-glow);
+}

@@ -1,0 +1,361 @@
+/* ==========================================================================
+   ADMIN CMS DASHBOARD & MODAL STYLING
+   ========================================================================== */
+
+/* Modal Backdrop */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(3, 5, 14, 0.85);
+  backdrop-filter: blur(16px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: modal-fade-in 0.25s ease;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+@keyframes modal-fade-in {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Modal Content Card */
+.admin-modal-card {
+  width: 100%;
+  max-width: 1080px;
+  height: 88vh;
+  max-height: 820px;
+  background: #0b1026;
+  border: 1px solid var(--border-neon);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 240, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Modal Header */
+.admin-header {
+  padding: 1.25rem 1.75rem;
+  background: rgba(14, 21, 48, 0.85);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-title-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-title-area h2 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--neon-cyan);
+  letter-spacing: 0.5px;
+}
+
+.admin-title-area span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.close-modal-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.close-modal-btn:hover {
+  background: rgba(244, 63, 94, 0.2);
+  color: var(--neon-rose);
+  border-color: var(--neon-rose);
+}
+
+/* Admin Body Layout (Sidebar Tabs + Content Area) */
+.admin-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  overflow: hidden;
+}
+
+@media (max-width: 800px) {
+  .admin-body {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+}
+
+/* Admin Tabs Sidebar */
+.admin-tabs-sidebar {
+  background: rgba(8, 12, 28, 0.95);
+  border-right: 1px solid var(--border-subtle);
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+}
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.tab-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+}
+
+.tab-btn.active {
+  background: linear-gradient(90deg, rgba(0, 240, 255, 0.15), rgba(168, 85, 247, 0.05));
+  color: var(--neon-cyan);
+  border-left: 3px solid var(--neon-cyan);
+}
+
+.tab-btn svg {
+  flex-shrink: 0;
+}
+
+/* Admin Content Panel */
+.admin-content-area {
+  padding: 1.75rem 2rem;
+  overflow-y: auto;
+  background: rgba(11, 16, 38, 0.6);
+}
+
+.tab-pane {
+  display: none;
+  animation: fade-tab 0.25s ease;
+}
+.tab-pane.active {
+  display: block;
+}
+
+@keyframes fade-tab {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pane-heading {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pane-heading h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--text-main);
+}
+.pane-heading p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+/* Form Styles */
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.25rem;
+}
+
+@media (max-width: 650px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 1.1rem;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-input, .form-textarea, .form-select {
+  background: rgba(6, 10, 24, 0.8);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 9px 12px;
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+  outline: none;
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+}
+
+.form-textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* Dynamic List Items (Requirements, FAQs, Teachers) */
+.dynamic-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.dynamic-item-card {
+  background: rgba(16, 23, 49, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.dynamic-item-card:hover {
+  border-color: rgba(0, 240, 255, 0.3);
+}
+
+.dynamic-item-content {
+  flex: 1;
+}
+
+.btn-delete-item {
+  background: rgba(244, 63, 94, 0.1);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  color: var(--neon-rose);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.btn-delete-item:hover {
+  background: var(--neon-rose);
+  color: #ffffff;
+}
+
+/* Code Snippet Box */
+.code-preview-box {
+  background: #050816;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: #7dd3fc;
+  overflow-x: auto;
+  position: relative;
+  margin: 1rem 0;
+}
+
+/* PIN Lock Screen Modal */
+.pin-dialog-card {
+  width: 360px;
+  background: #0c1026;
+  border: 1px solid var(--border-neon);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.8), 0 0 30px var(--neon-cyan-glow);
+}
+
+.pin-icon-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1.5px solid var(--neon-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  color: var(--neon-cyan);
+}
+
+.pin-input {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 6px;
+  text-align: center;
+  padding: 10px;
+  margin: 1rem 0 1.25rem;
+}
+
+/* Toast Notification */
+.admin-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: rgba(12, 16, 38, 0.95);
+  border: 1px solid var(--neon-cyan);
+  box-shadow: 0 10px 30px rgba(0, 240, 255, 0.3);
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  display: none;
+  align-items: center;
+  gap: 10px;
+  z-index: 2000;
+  backdrop-filter: blur(12px);
+  animation: slide-toast 0.3s ease;
+}
+
+@keyframes slide-toast {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
