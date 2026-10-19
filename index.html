@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
+  <title>SISKA SPENZAMIRT - Siska Hologram AI Sekolah Cerdas</title>
+  <meta name="description" content="Siska Hologram AI interaktif untuk sekolah, visual robot modern 3D yang cerdas, ditenagai Google Gemini AI dan data resmi SMP Negeri 1 Mirit.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="assets/mascot.jpg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/hologram.css">
+  <link rel="stylesheet" href="css/admin.css">
+
+  <!-- Three.js (3D Hologram Graphics) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <!-- Top App Header -->
+  <header class="app-header">
+    <div class="brand-wrapper">
+      <img src="assets/robot_modern.jpg" alt="Logo Robot AI" class="brand-mascot" id="brand-logo">
+      <div class="brand-text">
+        <h1 id="school-name-display">
+          ROBOT AI SEKOLAH
+          <span class="badge-ai">SMPN 1 MIRIT</span>
+        </h1>
+        <p id="school-sub-display">Akreditasi A (Unggul) • NPSN: 20330335</p>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <!-- Voice Toggle -->
+      <button class="btn btn-glass btn-icon" id="toggle-voice-mute" title="Suara AI: Aktif (Klik untuk nonaktifkan)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+      </button>
+
+      <!-- Sound FX Toggle -->
+      <button class="btn btn-glass btn-icon" id="toggle-sound-fx" title="Efek Suara Sci-Fi: Aktif">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+      </button>
+
+      <!-- Toggle Focus Mode (Hide Chat / Fullscreen Avatar) -->
+      <button class="btn btn-glass" id="toggle-focus-mode" title="Sembunyikan/Tampilkan Dialog Chat (Fokus Avatar)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        <span id="focus-btn-text">Fokus Avatar</span>
+      </button>
+
+      <!-- Avatar Appearance Toggle -->
+      <button class="btn btn-glass" id="toggle-view-mode" title="Ubah Tampilan Avatar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span id="view-mode-text">Avatar: Maskot AI (Live)</span>
+      </button>
+
+      <!-- Toggle Camera AI (Face-to-Face & Vision) -->
+      <button class="btn btn-glass" id="toggle-camera-btn" title="Aktifkan Kamera AI untuk Tatap Muka & Deteksi Wajah Langsung">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+        <span id="camera-btn-text">Kamera AI: Tatap Muka</span>
+      </button>
+
+      <!-- Voice Sound Toggle -->
+      <button class="btn btn-cyan" id="toggle-voice-mode-btn" title="Status Suara AI: Aktif - Klik untuk Heningkan / Aktifkan">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+        <span id="voice-mode-text">Suara: AI Aktif</span>
+      </button>
+
+      <!-- Admin Panel Button -->
+      <button class="btn btn-cyan" id="admin-open-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <span>Panel Admin Sekolah</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Grid Workspace -->
+  <main class="main-container" id="main-container">
+
+    <!-- LEFT COLUMN: FUTURISTIC 3D / HUMAN STAGE -->
+    <section class="hologram-stage-card" id="hologram-stage-card">
+      <!-- HUD Corners -->
+      <div class="hud-corner hud-corner-tl"></div>
+      <div class="hud-corner hud-corner-tr"></div>
+      <div class="hud-corner hud-corner-bl"></div>
+      <div class="hud-corner hud-corner-br"></div>
+
+      <!-- Scanlines & Beam Floor -->
+      <div class="hologram-scanlines"></div>
+      <div class="hologram-emitter-beam"></div>
+      <div class="hologram-grid-floor"></div>
+
+      <!-- Stage Top Bar (No Gemini text shown!) -->
+      <div class="stage-top-bar">
+        <div class="status-pill">
+          <div class="status-dot"></div>
+          <span id="status-pill-text">STANDBY & SIAP</span>
+        </div>
+        <div class="status-pill" style="border-color: rgba(255,255,255,0.15); color: var(--text-muted); font-size: 0.68rem;">
+          ASISTEN CERDAS SEKOLAH
+        </div>
+      </div>
+
+      <!-- 3D / Human / Mascot Viewport -->
+      <div class="hologram-viewport">
+        <!-- 1. Real Human Video Avatar (Nonaktif & Tersembunyi) -->
+        <div class="human-avatar-view" id="human-avatar-view" style="display: none;">
+          <div class="human-full-stage" id="human-full-stage">
+            <div class="human-bg-aura" id="human-bg-aura"></div>
+
+            <div class="human-full-body" id="human-full-body">
+              <img src="assets/robot_modern.jpg" alt="Robot AI SMPN 1 Mirit" class="human-base-photo" id="human-base-photo" style="display: none;">
+              <video 
+                class="human-live-video" 
+                id="human-live-video" 
+                src="" 
+                loop 
+                muted 
+                playsinline 
+                preload="none"
+                style="display: none;"
+              >
+              </video>
+              <video class="did-live-video" id="did-live-video" autoplay playsinline style="display: none;"></video>
+              <div class="human-ambient-light" id="human-ambient-light"></div>
+            </div>
+            <div class="human-caption-tag" id="human-caption-tag">
+              <h3 id="human-name-display">SISKA ADMIN SPENZAMIRT</h3>
+              <p id="human-title-display">Asisten Hologram AI Modern SMP Negeri 1 Mirit</p>
+            </div>
+            <div class="human-voice-eq-badge" id="human-voice-eq-badge">
+              <span class="eq-dot"></span>
+              <div class="mini-eq-bars">
+                <span></span><span></span><span></span><span></span>
+              </div>
+              <span id="human-status-badge">SIAP</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Three.js 3D Interactive Canvas -->
+        <div id="three-canvas-container" style="display: none;"></div>
+
+        <!-- 3. Animated Robot Mascot Live Avatar (Aktif Utama) -->
+        <div class="mascot-2d-view" id="mascot-2d-view" style="display: flex;">
+          <img src="assets/robot_modern.jpg" alt="SISKA Hologram Mascot" class="mascot-2d-img">
+        </div>
+
+        <!-- 4. Camera Vision PiP (Tatap Muka & Deteksi Wajah Langsung) -->
+        <div id="camera-vision-pip" class="camera-vision-pip" style="display: none;">
+          <div class="pip-header">
+            <span class="pip-dot"></span>
+            <span class="pip-title">AI VISION • TATAP MUKA</span>
+            <button class="pip-close" id="pip-close-btn" title="Tutup Kamera">&times;</button>
+          </div>
+          <div class="pip-body">
+            <video id="camera-feed-video" autoplay playsinline muted></video>
+            <canvas id="camera-hud-canvas" width="220" height="165"></canvas>
+            <div class="pip-scan-grid"></div>
+          </div>
+          <div class="pip-footer">
+            <span id="pip-status-info">MELIHAT PENANYA</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Floating Subtitle for Speaking -->
+      <div class="live-subtitle-box hidden" id="live-subtitle-box">
+        <span id="subtitle-text">...</span>
+      </div>
+
+      <!-- Stage Controls & Equalizer -->
+      <div class="hologram-controls">
+        <!-- Dynamic Audio Equalizer Waveform -->
+        <div class="audio-equalizer" id="audio-equalizer">
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+        </div>
+
+        <div class="controls-row">
+          <div class="robot-name-tag">
+            <h2 id="robot-name-display">SISKA ADMIN SPENZAMIRT</h2>
+            <p id="robot-sub-display">Asisten Hologram AI Modern SMP Negeri 1 Mirit</p>
+          </div>
+
+          <div class="stage-btn-group">
+            <button class="btn btn-glass" id="toggle-handsfree-btn" title="Mode Percakapan Mengalir (Hands-Free): Robot otomatis mendengarkan kembali setelah selesai menjawab">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span id="handsfree-text">Auto-Talk: OFF</span>
+            </button>
+            <button class="mic-btn-main" id="mic-btn-main" title="Klik untuk berbicara langsung via mikrofon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT COLUMN: CHAT PORTAL -->
+    <section class="chat-portal-card">
+      <!-- Chat Header -->
+      <div class="chat-header">
+        <div class="school-info-pill">
+          <div class="school-icon-badge">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+          </div>
+          <div class="school-details">
+            <h3 id="school-name-display">SMP NEGERI 1 MIRIT</h3>
+            <span>Pusat Informasi & Layanan Tanya Jawab Virtual</span>
+          </div>
+        </div>
+
+        <div class="chat-quick-actions">
+          <button class="btn btn-glass btn-icon" id="clear-chat-btn" title="Bersihkan Obrolan">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Messages Scroll Container -->
+      <div class="chat-messages-container" id="chat-messages">
+        <!-- Messages will be dynamically rendered here -->
+      </div>
+
+      <!-- Live Voice Transcript Toast Floating Indicator -->
+      <div class="voice-transcript-toast" id="voice-transcript-toast">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <span id="transcript-text">Mendengarkan suara Anda...</span>
+      </div>
+
+      <!-- Suggestion Quick Chips -->
+      <div class="suggestion-chips-wrapper">
+        <button class="chip-btn" data-prompt="Bagaimana informasi pendaftaran siswa baru (PPDB) tahun ini?">
+          📝 Info PPDB 2026
+        </button>
+        <button class="chip-btn" data-prompt="Apa saja persyaratan berkas untuk mendaftar di sekolah ini?">
+          📑 Syarat Berkas
+        </button>
+        <button class="chip-btn" data-prompt="Berapa rincian biaya pendaftaran, uang gedung, dan SPP? Apakah ada beasiswa?">
+          💰 Biaya & Beasiswa
+        </button>
+        <button class="chip-btn" data-prompt="Apa saja pilihan jurusan dan kurikulum yang diajarkan?">
+          🎓 Pilihan Jurusan
+        </button>
+        <button class="chip-btn" data-prompt="Apa saja fasilitas unggulan yang ada di sekolah?">
+          🔬 Fasilitas & Lab
+        </button>
+        <button class="chip-btn" data-prompt="Di mana alamat lengkap dan nomor WhatsApp resmi sekolah?">
+          📍 Kontak & Lokasi
+        </button>
+      </div>
+
+      <!-- Input Bar -->
+      <div class="chat-input-wrapper">
+        <div class="input-container">
+          <input 
+            type="text" 
+            class="chat-input" 
+            id="chat-input" 
+            placeholder="Tanyakan apa saja tentang sekolah, atau gunakan mikrofon untuk bicara..." 
+            autocomplete="off">
+
+          <button class="voice-input-btn" id="voice-input-btn" title="Bicara dengan Suara">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+          </button>
+
+          <button class="send-btn" id="send-btn" title="Kirim Pesan">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ========================================================================= -->
+  <!-- ADMIN PIN AUTHENTICATION MODAL -->
+  <!-- ========================================================================= -->
+  <div class="modal-overlay" id="pin-modal">
+    <div class="pin-dialog-card">
+      <div class="pin-icon-circle">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+      </div>
+      <h3 style="font-family: var(--font-display); color: var(--neon-cyan); margin-bottom: 6px;">OTORISASI ADMIN</h3>
+      <p style="font-size: 0.8rem; color: var(--text-muted);">Masukkan PIN Keamanan untuk membuka Panel Pengelolaan Data Sekolah</p>
+
+      <input type="password" id="pin-input" class="form-input pin-input" maxlength="10" placeholder="••••">
+      <p style="font-size: 0.72rem; color: var(--text-dim); margin-bottom: 1rem;">(Default PIN: <strong style="color: var(--neon-cyan);">admin123</strong>)</p>
+
+      <div style="display: flex; gap: 10px;">
+        <button class="btn btn-glass" style="flex: 1;" id="pin-cancel-btn">Batal</button>
+        <button class="btn btn-cyan" style="flex: 1;" id="pin-submit-btn">Masuk</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- ADMIN CMS DASHBOARD MODAL -->
+  <!-- ========================================================================= -->
+  <div class="modal-overlay" id="admin-modal">
+    <div class="admin-modal-card">
+      <!-- Modal Header -->
+      <div class="admin-header">
+        <div class="admin-title-area">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+          <div>
+            <h2>PANEL ADMIN KELOLA DATA SEKOLAH</h2>
+            <span>Semua data di sini otomatis diinjeksi ke otak robot AI</span>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button class="btn btn-cyan" id="btn-save-admin-data">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+            <span>Simpan Semua Perubahan</span>
+          </button>
+          <button class="close-modal-btn" id="close-admin-modal" title="Tutup">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body (Sidebar + Content) -->
+      <div class="admin-body">
+        <!-- Sidebar Navigation -->
+        <nav class="admin-tabs-sidebar">
+          <button class="tab-btn active" data-tab="profile">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span>1. Profil Sekolah</span>
+          </button>
+          <button class="tab-btn" data-tab="ppdb">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            <span>2. Data PPDB & Biaya</span>
+          </button>
+          <button class="tab-btn" data-tab="academic">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+            <span>3. Jurusan & Fasilitas</span>
+          </button>
+          <button class="tab-btn" data-tab="teachers">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            <span>4. Guru & Staf</span>
+          </button>
+          <button class="tab-btn" data-tab="faqs">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            <span>5. Tanya Jawab (FAQ)</span>
+          </button>
+          <button class="tab-btn" data-tab="announcements">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            <span>6. Pengumuman</span>
+          </button>
+          <button class="tab-btn" data-tab="ai-settings">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2 2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"></path><rect x="4" y="6" width="16" height="12" rx="2"></rect><circle cx="9" cy="12" r="1.5"></circle><circle cx="15" cy="12" r="1.5"></circle><path d="M10 16h4"></path></svg>
+            <span>7. Pengaturan AI Gemini</span>
+          </button>
+          <button class="tab-btn" data-tab="embed">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            <span>8. Pasang di Website</span>
+          </button>
+          <button class="tab-btn" data-tab="backup">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>9. Backup & Restore</span>
+          </button>
+        </nav>
+
+        <!-- Content Area -->
+        <div class="admin-content-area">
+
+          <!-- TAB 1: PROFIL SEKOLAH -->
+          <div class="tab-pane active" id="tab-profile">
+            <div class="pane-heading">
+              <div>
+                <h3>Profil & Identitas Resmi Sekolah</h3>
+                <p>Informasi dasar yang akan dijadikan referensi oleh robot AI saat menjawab pertanyaan umum.</p>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label>Nama Resmi Sekolah</label>
+                <input type="text" id="adm-school-name" class="form-input">
+              </div>
+              <div class="form-group">
+                <label>Motto / Slogan Sekolah</label>
+                <input type="text" id="adm-motto" class="form-input">
+              </div>
+              <div class="form-group">
+                <label>Nomor Pokok Sekolah Nasional (NPSN)</label>
+                <input type="text" id="adm-npsn" class="form-input">
+              </div>
+              <div class="form-group">
+                <label>Status Akreditasi & Nilai</label>
+                <input type="text" id="adm-accreditation" class="form-input">
+              </div>
+              <div class="form-group">
+                <label>Nama Kepala Sekolah</label>
+                <input type="text" id="adm-principal" class="form-input">
+              </div>
+              <div class="form-group">
+                <label>Jam Operasional & Layanan</label>
+                <input type="text" id="adm-operating-hours" class="form-input">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Visi Sekolah</label>
+              <textarea id="adm-vision" class="form-textarea" rows="2"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Misi Sekolah (Pisahkan setiap butir misi dengan baris baru)</label>
+              <textarea id="adm-mission" class="form-textarea" rows="4"></textarea>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label>Alamat Lengkap Sekolah</label>
+                <textarea id="adm-address" class="form-textarea" rows="2"></textarea>
+              </div>
+              <div>
+                <div class="form-group">
+                  <label>Nomor Telepon Kantor</label>
+                  <input type="text" id="adm-phone" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label>Nomor WhatsApp Resmi</label>
+                  <input type="text" id="adm-whatsapp" class="form-input">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label>Alamat Email Resmi</label>
+                <input type="email" id="adm-email" class="form-input">
+              </div>
+              <div class="form-group">
+                <label>Alamat Website Sekolah</label>
+                <input type="url" id="adm-website" class="form-input">
+              </div>
+            </div>
+          </div>
+
+
+          <!-- TAB 2: DATA PPDB & BIAYA -->
+          <div class="tab-pane" id="tab-ppdb">
+            <div class="pane-heading">
+              <div>
+                <h3>Informasi PPDB & Biaya Pendidikan</h3>
+                <p>Atur jadwal pendaftaran, persyaratan berkas, dan rincian biaya yang disampaikan robot ke calon siswa & wali murid.</p>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label>Status PPDB</label>
+                <select id="adm-ppdb-status" class="form-select">
+                  <option value="DIBUKA (Tahun Ajaran 2026/2027)">DIBUKA</option>
+                  <option value="SEGERA DIBUKA">SEGERA DIBUKA</option>
+                  <option value="DITUTUP">DITUTUP</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Gelombang yang Sedang Berjalan</label>
+                <input type="text" id="adm-ppdb-wave" class="form-input">
+              </div>
+              <div class="form-group">
+                <label>Periode Pendaftaran</label>
+                <input type="text" id="adm-ppdb-period" class="form-input">
+              </div>
+              <div class="form-group">
+                <label>Link Portal Pendaftaran Online</label>
+                <input type="url" id="adm-ppdb-link" class="form-input">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Narahubung / Kontak Panitia PPDB</label>
+              <input type="text" id="adm-ppdb-contact" class="form-input">
+            </div>
+
+            <h4 style="color: var(--neon-cyan); margin: 1.25rem 0 0.5rem; font-size: 0.95rem;">Rincian Biaya Pendidikan</h4>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label>Biaya Formulir & Seleksi</label>
+                <input type="text" id="adm-cost-reg" class="form-input">
+              </div>
+              <div class="form-group">
+                <label>Dana Sumbangan Pendidikan (DSP / Uang Pangkal)</label>
+                <input type="text" id="adm-cost-dsp" class="form-input">
+              </div>
+              <div class="form-group">
+                <label>Biaya SPP Bulanan</label>
+                <input type="text" id="adm-cost-spp" class="form-input">
+              </div>
+              <div class="form-group">
+                <label>Paket Seragam & Atribut</label>
+                <input type="text" id="adm-cost-uniform" class="form-input">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Syarat Berkas Pendaftaran (Satu baris per persyaratan)</label>
+              <textarea id="adm-ppdb-requirements" class="form-textarea" rows="4"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Alur Pendaftaran Langkah demi Langkah (Satu baris per langkah)</label>
+              <textarea id="adm-ppdb-flow" class="form-textarea" rows="4"></textarea>
+            </div>
+          </div>
+
+
+          <!-- TAB 3: JURUSAN & FASILITAS -->
+          <div class="tab-pane" id="tab-academic">
+            <div class="pane-heading">
+              <div>
+                <h3>Kurikulum, Fasilitas & Ekstrakurikuler</h3>
+                <p>Data sarana belajar dan pengembangan bakat siswa di sekolah.</p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Kurikulum Pembelajaran yang Diterapkan</label>
+              <input type="text" id="adm-curriculum" class="form-input">
+            </div>
+
+            <div class="form-group">
+              <label>Fasilitas Unggulan (Satu baris per fasilitas)</label>
+              <textarea id="adm-facilities" class="form-textarea" rows="5"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Daftar Ekstrakurikuler (Satu baris per ekstrakurikuler)</label>
+              <textarea id="adm-extracurriculars" class="form-textarea" rows="5"></textarea>
+            </div>
+          </div>
+
+
+          <!-- TAB 4: GURU & STAF -->
+          <div class="tab-pane" id="tab-teachers">
+            <div class="pane-heading">
+              <div>
+                <h3>Data Guru & Tenaga Pendidik</h3>
+                <p>Daftar pengajar yang dapat ditanyakan oleh siswa maupun wali murid ke robot AI.</p>
+              </div>
+            </div>
+
+            <div class="dynamic-list" id="adm-teachers-container">
+              <!-- Rendered via JS -->
+            </div>
+
+            <h4 style="color: var(--neon-cyan); margin: 1.5rem 0 0.75rem; font-size: 0.95rem;">Tambah Guru Baru</h4>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label>Nama & Gelar Lengkap</label>
+                <input type="text" id="new-teacher-name" class="form-input" placeholder="contoh: Ibu Ratna Dewi, M.Pd.">
+              </div>
+              <div class="form-group">
+                <label>Jabatan / Peran</label>
+                <input type="text" id="new-teacher-role" class="form-input" placeholder="contoh: Guru BK / Wali Kelas X">
+              </div>
+              <div class="form-group">
+                <label>Mata Pelajaran yang Diampu</label>
+                <input type="text" id="new-teacher-subject" class="form-input" placeholder="contoh: Fisika Modern">
+              </div>
+              <div class="form-group">
+                <label>Email / Kontak Konsultasi</label>
+                <input type="text" id="new-teacher-contact" class="form-input" placeholder="contoh: ratna@sekolah.sch.id">
+              </div>
+            </div>
+            <button class="btn btn-glass" id="btn-add-teacher" style="color: var(--neon-cyan); border-color: var(--neon-cyan);">
+              + Tambahkan Guru ke Data
+            </button>
+          </div>
+
+
+          <!-- TAB 5: FAQ & TANYA JAWAB KUSTOM -->
+          <div class="tab-pane" id="tab-faqs">
+            <div class="pane-heading">
+              <div>
+                <h3>Basis Pengetahuan Khusus (FAQ)</h3>
+                <p>Masukkan pertanyaan spesifik yang sering ditanyakan di sekolah Anda beserta jawaban resminya.</p>
+              </div>
+            </div>
+
+            <div class="dynamic-list" id="adm-faq-container">
+              <!-- Rendered via JS -->
+            </div>
+
+            <h4 style="color: var(--neon-cyan); margin: 1.5rem 0 0.75rem; font-size: 0.95rem;">Tambah Tanya Jawab (Q&A) Baru</h4>
+            <div class="form-group">
+              <label>Pertanyaan yang Sering Ditanyakan</label>
+              <input type="text" id="new-faq-q" class="form-input" placeholder="contoh: Apakah sekolah menyediakan asrama untuk siswa luar kota?">
+            </div>
+            <div class="form-group">
+              <label>Jawaban Resmi Sekolah</label>
+              <textarea id="new-faq-a" class="form-textarea" rows="3" placeholder="contoh: Ya, sekolah menyediakan asrama putra dan putri dengan kapasitas 200 siswa lengkap dengan pembinaan tahfidz dan WiFi gratis."></textarea>
+            </div>
+            <button class="btn btn-glass" id="btn-add-faq" style="color: var(--neon-cyan); border-color: var(--neon-cyan);">
+              + Tambahkan FAQ ke Pengetahuan AI
+            </button>
+          </div>
+
+
+          <!-- TAB 6: PENGUMUMAN -->
+          <div class="tab-pane" id="tab-announcements">
+            <div class="pane-heading">
+              <div>
+                <h3>Pengumuman & Agenda Terkini</h3>
+                <p>Kabar terkini dan agenda penting yang akan disampaikan robot AI jika pengguna bertanya seputar berita terbaru.</p>
+              </div>
+            </div>
+
+            <div class="dynamic-list" id="adm-announcements-container">
+              <!-- Rendered via JS -->
+            </div>
+
+            <h4 style="color: var(--neon-cyan); margin: 1.5rem 0 0.75rem; font-size: 0.95rem;">Tambah Pengumuman Baru</h4>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label>Judul Pengumuman</label>
+                <input type="text" id="new-ann-title" class="form-input" placeholder="contoh: Jadwal Tes Skolastik PPDB Gelombang 1">
+              </div>
+              <div class="form-group">
+                <label>Tanggal Pelaksanaan / Rilis</label>
+                <input type="text" id="new-ann-date" class="form-input" placeholder="contoh: 20 Oktober 2026">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Isi Lengkap Pengumuman</label>
+              <textarea id="new-ann-content" class="form-textarea" rows="3" placeholder="contoh: Tes skolastik akan dilaksanakan secara online di portal CBT mulai pukul 08.00 WIB."></textarea>
+            </div>
+            <button class="btn btn-glass" id="btn-add-announcement" style="color: var(--neon-cyan); border-color: var(--neon-cyan);">
+              + Publikasikan Pengumuman
+            </button>
+          </div>
+
+
+          <!-- TAB 7: PENGATURAN AI & GEMINI -->
+          <div class="tab-pane" id="tab-ai-settings">
+            <div class="pane-heading">
+              <div>
+                <h3>Konfigurasi Google Gemini AI & Persona Robot</h3>
+                <p>Hubungkan API Key Google Gemini untuk kemampuan pemahaman bahasa alami tingkat tinggi dan personalisasi karakter robot.</p>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label>Nama Robot AI</label>
+                <input type="text" id="adm-robot-name" class="form-input" placeholder="contoh: AURA">
+              </div>
+              <div class="form-group">
+                <label>Gelar / Subtitle Robot</label>
+                <input type="text" id="adm-robot-title" class="form-input" placeholder="contoh: Asisten Virtual & Duta Sekolah">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Google Gemini API Key</label>
+              <div style="display: flex; gap: 8px;">
+                <input type="password" id="adm-gemini-key" class="form-input" placeholder="AIzaSy..." style="flex: 1;">
+                <button class="btn btn-glass" id="btn-test-gemini" style="flex-shrink: 0;">Uji Koneksi API</button>
+              </div>
+              <p style="font-size: 0.74rem; color: var(--text-dim); margin-top: 4px;">
+                Dapatkan API Key gratis di <a href="https://aistudio.google.com" target="_blank" style="color: var(--neon-cyan);">Google AI Studio</a>. *(Jika dikosongkan, robot tetap berjalan menggunakan Mesin Analisis Data Sekolah bawaan yang responsif)*.
+              </p>
+              <div id="gemini-test-result" style="margin-top: 6px; font-size: 0.8rem;"></div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label>Pilihan Model Gemini</label>
+                <select id="adm-gemini-model" class="form-select">
+                  <option value="gemini-2.0-flash" selected>Gemini 2.0 Flash (Resmi Google AI Studio - 1.500 Request/Hari Gratis)</option>
+                  <option value="gemini-2.0-flash-lite">Gemini 2.0 Flash Lite (Sangat Ringan & Cepat)</option>
+                  <option value="gemini-2.5-flash">Gemini 2.5 Flash (Model Khusus AI Studio)</option>
+                  <option value="gemini-1.5-flash">Gemini 1.5 Flash (Generasi Sebelumnya)</option>
+                  <option value="gemini-3.8-flash">Gemini 3.8 Flash (Preview - Dibatasi Google Hanya 20x/Hari)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Karakter Suara Bicara</label>
+                <select id="adm-voice-gender" class="form-select">
+                  <option value="female">Perempuan (Ramah & Hangat)</option>
+                  <option value="male">Laki-laki (Wibawa & Jelas)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Sumber Suara AI Saat Menjawab</label>
+                <select id="adm-voice-source" class="form-select">
+                  <option value="browser" selected>Suara Alami AI Natural (Microsoft Edge / Peramban)</option>
+                  <option value="browser_tts">Suara Standar Peramban (Web Speech API)</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 8px; padding: 12px; margin-bottom: 1.25rem; font-size: 0.8rem; line-height: 1.5;">
+              <strong style="color: var(--neon-cyan);">💡 Pilihan Suara AI 100% GRATIS:</strong>
+              <p style="margin: 6px 0 0 0; color: var(--text-dim);">
+                Buka aplikasi web ini di <strong>Microsoft Edge</strong> (ikon ombak di taskbar). Microsoft Edge menyertakan suara Bahasa Indonesia alami (<em>Microsoft Gadis / Ardi Natural</em>) yang fasih secara <strong>100% GRATIS seumur hidup tanpa biaya langganan</strong>!
+              </p>
+            </div>
+
+            <h4 style="color: var(--neon-cyan); margin: 1.5rem 0 0.75rem; font-size: 0.95rem;">Teknologi Tampilan Visual Avatar</h4>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label>Mode Tampilan Avatar Utama</label>
+                <select id="adm-human-avatar-mode" class="form-select">
+                  <option value="3d" selected>Robot Hologram 3D Modern (Futuristik & Interaktif)</option>
+                  <option value="mascot">Maskot Robot Modern (Visual 2D)</option>
+                  <option value="video">Video Avatar Manusia (File MP4)</option>
+                  <option value="photo">Foto Guru</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>File / URL Video Guru (.mp4)</label>
+                <input type="text" id="adm-avatar-video-url" class="form-input" placeholder="contoh: assets/gemini_generated_video_45dea1c5.mp4">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>D-ID API Key (Opsional - Untuk Video AI Realtime)</label>
+              <input type="password" id="adm-did-key" class="form-input" placeholder="D-ID Basic API Key...">
+              <p style="font-size: 0.74rem; color: var(--text-dim); margin-top: 4px;">
+                D-ID mengubah foto Ibu Siska menjadi video orang hidup dengan bibir bergerak secara presisi (Free Trial di <a href="https://d-id.com" target="_blank" style="color: var(--neon-cyan);">d-id.com</a>).
+              </p>
+            </div>
+
+            <div class="form-group">
+              <label>Salam Pembuka Otomatis (Greeting)</label>
+              <textarea id="adm-welcome-greeting" class="form-textarea" rows="2"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>System Prompt (Instruksi Perilaku & Kepribadian Robot)</label>
+              <textarea id="adm-system-prompt" class="form-textarea" rows="4"></textarea>
+            </div>
+          </div>
+
+
+          <!-- TAB 8: PASANG DI WEBSITE SEKOLAH -->
+          <div class="tab-pane" id="tab-embed">
+            <div class="pane-heading">
+              <div>
+                <h3>Pasang Robot AI di Website Sekolah</h3>
+                <p>Salin kode di bawah ini dan tempelkan ke website sekolah Anda (WordPress, Blogger, Web HTML, dll) untuk menampilkan robot AI ini.</p>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1.25rem; background: rgba(0, 240, 255, 0.05); padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(0, 240, 255, 0.25);">
+              <label style="color: var(--neon-cyan); font-weight: 600; display: block; margin-bottom: 6px;">URL / Lokasi Folder Robot di Hosting WordPress Anda:</label>
+              <input type="text" id="embed-custom-domain" class="form-input" value="https://smpn1mirit.sch.id/ai" placeholder="Contoh: https://smpn1mirit.sch.id/ai">
+              <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; margin-bottom: 0;">Kode di bawah otomatis disesuaikan dengan URL hosting Anda agar siap pakai langsung di WordPress.</p>
+            </div>
+
+            <h4 style="color: var(--neon-cyan); margin-bottom: 6px;">Metode 1: Floating Launcher Widget (Direkomendasikan)</h4>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px;">
+              Menampilkan tombol bulat melayang futuristik di pojok kanan bawah website sekolah yang dapat diklik untuk membuka jendela robot AI.
+            </p>
+            <div class="code-preview-box" id="embed-snippet-floating"></div>
+            <button class="btn btn-glass" id="btn-copy-embed-float" style="color: var(--neon-cyan); border-color: var(--neon-cyan);">
+              Salin Kode Widget Floating
+            </button>
+
+            <h4 style="color: var(--neon-cyan); margin-top: 1.75rem; margin-bottom: 6px;">Metode 2: Iframe Tersemat Langsung</h4>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px;">
+              Menyisipkan robot AI sebagai kotak dialog langsung di halaman khusus (contoh: di halaman Kontak atau Halaman PPDB).
+            </p>
+            <div class="code-preview-box" id="embed-snippet-iframe"></div>
+            <button class="btn btn-glass" id="btn-copy-embed-iframe" style="color: var(--neon-cyan); border-color: var(--neon-cyan);">
+              Salin Kode Iframe
+            </button>
+          </div>
+
+
+          <!-- TAB 9: BACKUP & RESTORE -->
+          <div class="tab-pane" id="tab-backup">
+            <div class="pane-heading">
+              <div>
+                <h3>Backup, Restore & Keamanan</h3>
+                <p>Ekspor dan amankan seluruh data sekolah ke file JSON, atau pulihkan data kapan saja.</p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 12px; margin-bottom: 2rem;">
+              <button class="btn btn-cyan" id="btn-export-json">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>Ekspor Cadangan Database (JSON)</span>
+              </button>
+
+              <button class="btn btn-glass" id="btn-import-json">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <span>Impor Data dari File JSON</span>
+              </button>
+              <input type="file" id="import-file-input" accept=".json" style="display: none;">
+            </div>
+
+            <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
+              <h4 style="color: var(--neon-rose); margin-bottom: 8px;">Area Pengaturan Tingkat Lanjut</h4>
+              <p style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 12px;">
+                Ganti PIN admin atau kembalikan seluruh data ke pengaturan bawaan awal.
+              </p>
+              <div style="display: flex; gap: 12px;">
+                <button class="btn btn-glass" id="btn-change-pin">Ganti PIN Keamanan Admin</button>
+                <button class="btn btn-glass" id="btn-reset-data" style="color: var(--neon-rose); border-color: rgba(244, 63, 94, 0.4);">
+                  Reset ke Data Default Contoh
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/hologram-3d.js"></script>
+  <script src="js/mascot-animated.js"></script>
+  <script src="js/human-avatar.js"></script>
+  <script src="js/voice.js"></script>
+  <script src="js/gemini.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/embed-widget.js"></script>
+  <script src="js/camera-vision.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
