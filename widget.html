@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School AI Assistant Widget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body {
+      background: #090e21;
+      height: 100vh;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .widget-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(12, 16, 36, 0.95);
+      border: 1.5px solid var(--neon-cyan);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.25);
+    }
+    .widget-header {
+      padding: 12px 16px;
+      background: rgba(18, 26, 54, 0.9);
+      border-bottom: 1px solid var(--border-neon);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .widget-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .widget-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid var(--neon-cyan);
+      box-shadow: 0 0 10px var(--neon-cyan-glow);
+      object-fit: cover;
+    }
+    .widget-title h3 {
+      font-family: var(--font-display);
+      font-size: 0.88rem;
+      color: var(--neon-cyan);
+    }
+    .widget-title p {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+    .widget-status-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.68rem;
+      color: var(--neon-cyan);
+      background: rgba(0, 240, 255, 0.1);
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 240, 255, 0.3);
+    }
+    .widget-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .widget-chips {
+      padding: 6px 12px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      border-top: 1px solid var(--border-subtle);
+      background: rgba(7, 10, 24, 0.5);
+    }
+    .widget-chips button {
+      white-space: nowrap;
+      font-size: 0.72rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .widget-chips button:hover {
+      color: var(--neon-cyan);
+      border-color: var(--neon-cyan);
+    }
+    .widget-input-bar {
+      padding: 10px 14px;
+      background: rgba(14, 20, 44, 0.95);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="widget-container">
+    <div class="widget-header">
+      <div class="widget-brand">
+        <img src="assets/robot_modern.jpg" alt="ROBOT AI SPENSA" class="widget-avatar" style="object-position: center;">
+        <div class="widget-title">
+          <h3 id="w-robot-name">ROBOT AI SPENSA</h3>
+          <p id="w-school-name">SMP Negeri 1 Mirit</p>
+        </div>
+      </div>
+      <div class="widget-status-badge">
+        <div class="status-dot"></div>
+        <span id="w-status">ONLINE</span>
+      </div>
+    </div>
+
+    <div class="widget-messages" id="w-chat-messages">
+      <!-- Dynamic messages -->
+    </div>
+
+    <div class="widget-chips">
+      <button onclick="sendQuickPrompt('Info pendaftaran siswa baru (PPDB)')">📝 PPDB 2026</button>
+      <button onclick="sendQuickPrompt('Apa saja persyaratan berkas pendaftaran?')">📑 Syarat</button>
+      <button onclick="sendQuickPrompt('Berapa biaya pendaftaran dan SPP?')">💰 Biaya</button>
+      <button onclick="sendQuickPrompt('Pilihan jurusan apa saja yang ada?')">🎓 Jurusan</button>
+      <button onclick="sendQuickPrompt('Alamat dan kontak resmi sekolah')">📍 Kontak</button>
+    </div>
+
+    <div class="widget-input-bar">
+      <input type="text" id="w-input" class="chat-input" placeholder="Tanya info sekolah..." style="background: rgba(6, 9, 22, 0.8); padding: 8px 12px; border-radius: 10px; border: 1px solid var(--border-subtle);">
+      <button class="voice-input-btn" id="w-mic-btn" title="Bicara">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+      </button>
+      <button class="send-btn" id="w-send-btn" style="width: 36px; height: 36px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+      </button>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/voice.js"></script>
+  <script src="js/gemini.js"></script>
+  <script src="js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const adminMgr = new SchoolAdminManager();
+      const aiEngine = new GeminiSchoolAI(() => adminMgr.schoolData, () => adminMgr.settings);
+      const voiceEngine = new HologramVoiceEngine({
+        lang: 'id-ID',
+        gender: adminMgr.settings.voiceGender || 'female',
+        onSpeechResult: (text) => { if (text) handleSend(text); }
+      });
+
+      const messagesContainer = document.getElementById('w-chat-messages');
+      const input = document.getElementById('w-input');
+      const sendBtn = document.getElementById('w-send-btn');
+      const micBtn = document.getElementById('w-mic-btn');
+
+      // Update header
+      document.getElementById('w-robot-name').textContent = adminMgr.settings.robotName || 'ROBOT AI SPENSA';
+      document.getElementById('w-school-name').textContent = adminMgr.schoolData.profile?.name || 'SMP Negeri 1 Mirit';
+
+      function appendWidgetMsg(sender, text) {
+        const row = document.createElement('div');
+        row.className = `message-row ${sender === 'user' ? 'user-msg' : 'ai-msg'}`;
+        const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        if (sender === 'user') {
+          row.innerHTML = `
+            <div class="msg-content-wrapper" style="max-width: 90%;">
+              <div class="msg-sender-name">Anda • ${timeStr}</div>
+              <div class="msg-bubble" style="padding: 8px 12px; font-size: 0.84rem;">${text}</div>
+            </div>
+          `;
+        } else {
+          row.innerHTML = `
+            <div class="msg-content-wrapper" style="max-width: 90%;">
+              <div class="msg-sender-name">${adminMgr.settings.robotName || 'ROBOT AI SPENSA'} • ${timeStr}</div>
+              <div class="msg-bubble" style="padding: 8px 12px; font-size: 0.84rem;">${text.replace(/\n/g, '<br>')}</div>
+            </div>
+          `;
+        }
+        messagesContainer.appendChild(row);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+
+      async function handleSend(text) {
+        const q = (text || input.value).trim();
+        if (!q) return;
+        input.value = '';
+        appendWidgetMsg('user', q);
+
+        document.getElementById('w-status').textContent = 'MENGETIK...';
+        try {
+          const res = await aiEngine.sendMessage(q);
+          document.getElementById('w-status').textContent = 'ONLINE';
+          appendWidgetMsg('ai', res);
+          if (adminMgr.settings.voiceEnabled) {
+            voiceEngine.speak(res);
+          }
+        } catch (e) {
+          document.getElementById('w-status').textContent = 'ONLINE';
+          appendWidgetMsg('ai', "Maaf, terjadi kesalahan.");
+        }
+      }
+
+      sendBtn.onclick = () => handleSend();
+      input.onkeydown = (e) => { if (e.key === 'Enter') handleSend(); };
+      micBtn.onclick = () => {
+        if (voiceEngine.isListening) voiceEngine.stopListening();
+        else voiceEngine.startListening();
+      };
+
+      window.sendQuickPrompt = (p) => handleSend(p);
+
+      // Greeting
+      appendWidgetMsg('ai', adminMgr.settings.welcomeGreeting || "Halo! Ada yang bisa saya bantu terkait informasi sekolah?");
+    });
+  </script>
+</body>
+</html>
