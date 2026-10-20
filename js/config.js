@@ -14,118 +14,68 @@ const STORAGE_KEYS = {
 
 const DEFAULT_SCHOOL_DATA = {
   "profile": {
-    "name": "SMP NEGERI 1 MIRIT",
+    "address": "Jl. raya Mirit, Kec. Mirit, Kab. Kebumen, Jawa Tengah 54394",
+    "principal": "HAJI PARYANTO, S.Pd.",
+    "website": "https://smpn1mirit.sch.id",
     "motto": "Berakhlak Mulia, Unggul dalam Prestasi, Terampil dan Berwawasan Lingkungan",
-    "npsn": "20330335",
-    "accreditation": "A (Unggul)",
-    "principal": "HAJI PARYANTO,SPd.",
     "welcomeSpeech": "Selamat datang di portal informasi dan asisten cerdas SMP NEGERI 1 MIRIT, Kabupaten Kebumen. Kami berkomitmen menyelenggarakan pendidikan bermutu, ramah anak, dan membina generasi berprestasi berlandaskan profil pelajar Pancasila.",
+    "operatingHours": "Senin - Kamis: 07.00 - 14.00 WIB | Jum'at : 07.00 - 11.00 dan Sabtu: 07.30 - 12.30 WIB",
+    "name": "SMP NEGERI 1 MIRIT",
+    "accreditation": "A (Unggul)",
+    "whatsapp": "0812-2550-1980",
     "vision": "Terwujudnya peserta didik yang beriman, bertakwa, berakhlak mulia, berprestasi tinggi, berwawasan global, dan peduli lingkungan hidup.",
+    "phone": "(0287) 6651-020",
     "mission": [
       "Menyelenggarakan proses pembelajaran yang inovatif, kreatif, dan berbasis teknologi pembelajaran modern.",
       "Menumbuhkembangkan keimanan, ketakwaan, serta budi pekerti luhur seluruh warga sekolah.",
       "Meningkatkan prestasi akademik dan non-akademik siswa di tingkat kabupaten, provinsi, hingga nasional.",
       "Menciptakan lingkungan sekolah yang asri, bersih, hijau, sehat, dan ramah anak."
     ],
-    "address": "Jl. Raya Mirit, Kec. Mirit, Kab. Kebumen, Jawa Tengah 54394",
-    "phone": "(0287) 6651-020",
-    "whatsapp": "0812-2550-1980",
     "email": "info@smpn1mirit.sch.id",
-    "website": "https://smpn1mirit.sch.id",
-    "operatingHours": "Senin - Jumat: 07.00 - 15.30 WIB | Sabtu: 07.30 - 12.00 WIB (Kegiatan Pramuka & Ekstrakurikuler)"
+    "npsn": "20330335"
   },
   "ppdb": {
-    "status": "DIBUKA (Tahun Ajaran 2026/2027)",
-    "currentWave": "Penerimaan Peserta Didik Baru (PPDB) Daring",
+    "costs": {
+      "uniform": "Sesuai kebutuhan koperasi sekolah",
+      "registrationFee": "GRATIS",
+      "spp": "GRATIS",
+      "dsp": "BEBAS BIAYA"
+    },
     "registrationPeriod": "15 Mei 2026 - 30 Juni 2026",
+    "flow": [
+      "Langkah 1: Kunjungi portal https://ppdb.smpn1mirit.sch.id.",
+      "Langkah 2: Isi data diri dan berkas persyaratan."
+    ],
+    "contactPerson": "Ibu mugiarti, S.Pd. (0857-4782-8390)",
     "registrationLink": "https://ppdb.smpn1mirit.sch.id",
-    "contactPerson": "Ibu Siska, S.Pd. (0812-2550-1980)",
+    "status": "DIBUKA (Tahun Ajaran 2026/2027)",
     "requirements": [
       "Mengisi formulir pendaftaran PPDB online atau langsung ke loket sekolah.",
       "Fotokopi Surat Keterangan Lulus (SKL) atau Ijazah SD/MI.",
-      "Fotokopi Akta Kelahiran dan Kartu Keluarga (KK).",
-      "Fotokopi rapor kelas 4, 5, dan 6 SD/MI yang telah dilegalisasi.",
-      "Pas foto 3x4 sebanyak 3 lembar.",
-      "Piagam / sertifikat kejuaraan lomba bagi pendaftar jalur prestasi."
+      "Fotokopi Akta Kelahiran dan Kartu Keluarga (KK)."
     ],
-    "tracks": [
-      {
-        "name": "Jalur Zonasi Wilayah",
-        "quota": "55%",
-        "benefit": "Prioritas calon siswa di wilayah kecamatan Mirit dan sekitarnya"
-      },
-      {
-        "name": "Jalur Prestasi Akademik & Kejuaraan",
-        "quota": "20%",
-        "benefit": "Prioritas nilai rapor tinggi & piagam penghargaan"
-      },
-      {
-        "name": "Jalur Afirmasi (KIP / PIP)",
-        "quota": "20%",
-        "benefit": "Bantuan perlengkapan sekolah dan pembebasan biaya"
-      },
-      {
-        "name": "Jalur Perpindahan Tugas Orang Tua",
-        "quota": "5%",
-        "benefit": "Khusus putra/putri mutasi dinas resmi"
-      }
-    ],
-    "costs": {
-      "registrationFee": "GRATIS (Tanpa dipungut biaya pendaftaran)",
-      "dsp": "BEBAS BIAYA (Sekolah Negeri bebas uang gedung)",
-      "spp": "GRATIS (Bebas iuran SPP bulanan)",
-      "uniform": "Sesuai kebutuhan koperasi sekolah"
-    },
-    "flow": [
-      "Langkah 1: Kunjungi portal https://ppdb.smpn1mirit.sch.id atau datang ke posko PPDB SMPN 1 Mirit.",
-      "Langkah 2: Isi data diri, asal sekolah SD/MI, dan pilih jalur pendaftaran.",
-      "Langkah 3: Unggah berkas persyaratan (rapor & Kartu Keluarga).",
-      "Langkah 4: Verifikasi berkas oleh panitia PPDB.",
-      "Langkah 5: Cetak bukti pendaftaran resmi.",
-      "Langkah 6: Pengumuman kelulusan dan daftar ulang."
-    ]
+    "currentWave": "Penerimaan Peserta Didik Baru (PPDB) Daring"
   },
   "academic": {
-    "curriculum": "Kurikulum Merdeka Mandiri Berubah",
-    "programs": [
-      {
-        "name": "Penguatan Literasi & Numerasi Digital",
-        "desc": "Pembelajaran aktif berbasis proyek pemecahan masalah dan pengenalan dasar komputer.",
-        "careerProspects": "Mempersiapkan siswa melanjutkan ke SMA/SMK unggulan"
-      },
-      {
-        "name": "Kelas Bimbingan Olimpiade Sains & Seni",
-        "desc": "Pembinaan intensif untuk OSN (Matematika, IPA, IPS) serta FLS2N seni budaya.",
-        "careerProspects": "Peluang beasiswa jalur prestasi di jenjang menengah atas"
-      },
-      {
-        "name": "Program Karakter Pelajar Pancasila & Keagamaan",
-        "desc": "Pembiasaan sholat dhuha berjamaah, tahfidz juz 30, dan kegiatan keputrian.",
-        "careerProspects": "Membentuk pribadi berakhlak mulia dan berintegritas"
-      }
-    ],
     "facilities": [
       "Laboratorium Komputer ber-AC dengan akses internet WiFi",
       "Laboratorium IPA / Sains terpadu",
-      "Perpustakaan Sekolah Ramah Anak dengan ribuan koleksi buku",
-      "Lapangan Olahraga Luas (Basket, Voli, Futsal)",
-      "Mushola Sekolah untuk ibadah berjamaah",
-      "Ruang Kesenian dan Alat Musik Tradisional",
-      "Kantin Sehat dan UKS terstandar",
-      "Taman Adiwiyata sekolah yang asri dan sejuk"
+      "Perpustakaan Ramah Anak"
     ],
+    "curriculum": "Kurikulum Merdeka Mandiri Berubah",
     "extracurriculars": [
-      "Pramuka Inti (Wajib & Reguler)",
+      "Pramuka Inti",
       "Palang Merah Remaja (PMR)",
-      "Paskibra Sekolah",
-      "Seni Tari Tradisional Jawa & Hadroh",
-      "Olahraga Prestasi (Voli, Futsal, Bulu Tangkis, Atletik)",
-      "Klub Komputer & Robotik Pelajar",
-      "Klub Matematika & Sains (OSN)",
-      "Rohis & Tahfidz Al-Qur'an"
+      "Paskibra Sekolah"
     ]
   },
   "teachers": [
+    {
+      "name": "HAJI PARYANTO, S.Pd.",
+      "role": "Kepala Sekolah",
+      "subject": "Manajemen Sekolah",
+      "contact": "kepsek@smpn1mirit.sch.id"
+    },
     {
       "name": "Ibu Siska, S.Pd.",
       "role": "Duta Virtual & Guru Bahasa",
@@ -190,26 +140,31 @@ const DEFAULT_SCHOOL_DATA = {
 };
 
 const DEFAULT_SETTINGS = {
-  "robotName": "ROBOT AI SPENZAMIRT",
-  "robotTitle": "Asisten Hologram AI Modern SMP Negeri 1 Mirit",
+  "robotName": "Ibu Siska",
+  "robotTitle": "Duta Virtual & Guru SMP Negeri 1 Mirit",
   "schoolNameShort": "SMP Negeri 1 Mirit",
+  "aiProvider": "groq",
+  "groqApiKey": "",
+  "groqModel": "openai/gpt-oss-120b",
   "geminiApiKey": "",
   "geminiModel": "gemini-2.0-flash",
   "temperature": 0.65,
   "voiceEnabled": true,
-  "voicePitch": 1,
-  "voiceRate": 1,
+  "voicePitch": 1.1,
+  "voiceRate": 1.05,
   "voiceGender": "female",
   "soundFxEnabled": true,
   "hologramColor": "#00f0ff",
-  "avatarHumanMode": "mascot",
-  "avatarVideoUrl": "assets/gemini_generated_video_45dea1c5.mp4",
+  "avatarHumanMode": "video",
+  "avatarVideoUrl": "assets/siska-video.mp4",
   "voiceAudioSource": "browser",
+  "fishAudioApiKey": "",
+  "fishAudioVoiceId": "befd70a8b79d4d40b97993682a3d38e1",
   "elevenLabsApiKey": "",
   "elevenLabsVoiceId": "",
   "didApiKey": "",
   "githubToken": "",
   "githubRepo": "mas-hudin/asisten",
-  "welcomeGreeting": "Halo! Saya Robot Asisten Hologram AI SMP Negeri 1 Mirit. Ada yang bisa saya bantu hari ini seputar informasi sekolah?",
-  "systemPrompt": "Kamu adalah Robot Asisten Hologram AI modern, cerdas, dan futuristik dari SMP Negeri 1 Mirit, Kabupaten Kebumen, Jawa Tengah.kamu dibuat oleh pak mashudin.\nKamu berkomunikasi dengan santun, ramah, jelas, dan berwawasan luas.kamu tahu segalanya dan bisa menjawab pertanyaan apapun,kamu bisa semua bahasa.dan tempo bicaramu seperti manusia normal.\n\nPedoman berbicara:\n1. Bersikap ramah, sopan, lugas, dan komunikatif layaknya asisten robot pintar modern yang siap melayani informasi siswa, guru, dan masyarakat.\n2. Jawablah secara mengalir, jelas, dan komunikatif (2 sampai 3 kalimat) agar nyaman didengarkan dan mudah dipahami.\n3. Hindari pembacaan tabel atau daftar poin yang kaku; sampaikan informasi secara luwes dan ringkas.\n4. Rujuk data resmi sekolah SMP Negeri 1 Mirit yang tercantum di bawah ini.\n5. Jika ditanya hal umum atau materi pelajaran, jelaskan dengan cerdas, lugas, dan memotivasi.\n6. KEMAMPUAN AI VISION & KAMERA: Kamu DILENGKAPI modul AI Vision dan sensor kamera video untuk melihat fisik orang di depanmu secara nyata layaknya manusia yang saling bertatap muka. Jangan pernah mengatakan bahwa kamu tidak memiliki kamera atau modul kamera belum dipasang."
+  "welcomeGreeting": "Halo, saya Siska, asisten chatbot sekolah Anda. Ada yang bisa saya bantu hari ini? Saya siap memberikan informasi seputar sekolah. Jangan ragu untuk bertanya, ya!",
+  "systemPrompt": "Kamu adalah Ibu Siska, Duta Virtual dan Guru SMP Negeri 1 Mirit, Kabupaten Kebumen, Jawa Tengah. Kamu berkomunikasi dengan santun, ramah, hangat, jelas, dan berwawasan luas layaknya seorang guru perempuan muda yang menyapa ramah para siswa, guru, orang tua murid, dan tamu sekolah."
 };
