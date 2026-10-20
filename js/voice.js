@@ -123,25 +123,37 @@ class HologramVoiceEngine {
     );
 
     if (idVoices.length > 0) {
-      // 1. Microsoft Gadis Online (Natural) di Edge - suara manusia asli paling jernih & selaras video
-      const natural = idVoices.find(v => 
-        (v.name.includes('Natural') || v.name.includes('Neural') || v.name.includes('Online')) &&
-        (this.options.gender === 'female' ? !v.name.toLowerCase().includes('ardi') : true)
-      );
-      if (natural) return natural;
+      const isMale = (name) => {
+        const n = (name || '').toLowerCase();
+        return n.includes('ardi') || n.includes('andika') || n.includes('male') || n.includes('pria') || n.includes('david');
+      };
 
-      // 2. Google Bahasa Indonesia di Chrome (fasih dan jernih)
-      const google = idVoices.find(v => v.name.includes('Google') || v.name.toLowerCase().includes('indonesia'));
-      if (google) return google;
-
-      // 3. Suara wanita Indonesia lainnya
       if (this.options.gender === 'female') {
-        const female = idVoices.find(v => 
-          v.name.toLowerCase().includes('gadis') || 
-          v.name.toLowerCase().includes('siti') || 
-          (!v.name.toLowerCase().includes('ardi') && !v.name.toLowerCase().includes('male'))
+        // 1. Microsoft Gadis Online (Natural) di Edge - suara wanita Indonesia paling jernih & ramah
+        const gadis = idVoices.find(v => v.name.toLowerCase().includes('gadis') && !isMale(v.name));
+        if (gadis) return gadis;
+
+        // 2. Google Bahasa Indonesia di Chrome
+        const google = idVoices.find(v => v.name.includes('Google') && !isMale(v.name));
+        if (google) return google;
+
+        // 3. Suara wanita bernama Siti atau lainnya
+        const siti = idVoices.find(v => v.name.toLowerCase().includes('siti') && !isMale(v.name));
+        if (siti) return siti;
+
+        // 4. Suara Natural / Online lainnya yang BUKAN pria
+        const naturalFemale = idVoices.find(v => 
+          (v.name.includes('Natural') || v.name.includes('Neural') || v.name.includes('Online')) && !isMale(v.name)
         );
-        if (female) return female;
+        if (naturalFemale) return naturalFemale;
+
+        // 5. Suara Indonesia apa saja yang BUKAN pria
+        const anyFemale = idVoices.find(v => !isMale(v.name));
+        if (anyFemale) return anyFemale;
+      } else {
+        // Jika mode pria
+        const maleVoice = idVoices.find(v => isMale(v.name));
+        if (maleVoice) return maleVoice;
       }
 
       return idVoices[0];
@@ -453,6 +465,11 @@ class HologramVoiceEngine {
 
       if (bestVoice) {
         utterance.voice = bestVoice;
+        // Jika gender wanita dipilih tapi sistem hanya memiliki voice pria (misal Windows jadul), naikkan nada pitch agar tetap ramah/feminin
+        const isMaleVoice = (bestVoice.name || '').toLowerCase().includes('andika') || (bestVoice.name || '').toLowerCase().includes('ardi');
+        if (this.options.gender === 'female' && isMaleVoice) {
+          utterance.pitch = (this.options.pitch || 1.0) * 1.35;
+        }
       }
 
       utterance.onend = () => {
@@ -600,17 +617,10 @@ class HologramVoiceEngine {
     const expectedDurationMs = Math.max(3500, Math.min(35000, cleanText.length * 75));
 
     const adminSettings = (window.adminMgr && window.adminMgr.settings) ? window.adminMgr.settings : null;
-    const forceBrowserTTS = adminSettings && adminSettings.voiceAudioSource === 'browser_tts';
 
     const fallbackSynthesis = () => {
-      const bestVoice = this.getBestIndonesianVoice();
-      if (forceBrowserTTS || bestVoice) {
-        this.speakBrowserSynthesis(cleanText, sessionId, onCompleteCallback, expectedDurationMs);
-      } else {
-        this.speakAudioStream(phrases, sessionId, onCompleteCallback, () => {
-          this.speakBrowserSynthesis(cleanText, sessionId, onCompleteCallback, expectedDurationMs);
-        });
-      }
+      // Gunakan Browser Speech Synthesis langsung tanpa jeda buffering internet eksternal yang lambat
+      this.speakBrowserSynthesis(cleanText, sessionId, onCompleteCallback, expectedDurationMs);
     };
 
     // 1. PRIORITAS UTAMA: Jika ada API Key & Voice ID Kloning Suara Ibu Siska, gunakan Voice Cloning!

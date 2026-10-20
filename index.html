@@ -250,6 +250,10 @@
         </button>
         <button class="chip-btn" data-prompt="Berapa rincian biaya pendaftaran, uang gedung, dan SPP? Apakah ada beasiswa?">
           💰 Biaya & Beasiswa
+        </button>
+        <button class="chip-btn" data-prompt="Apa saja pilihan jurusan dan kurikulum yang diajarkan?">
+          🎓 Pilihan Jurusan
+        </button>
         <button class="chip-btn" data-prompt="Apa saja fasilitas unggulan yang ada di sekolah?">
           🔬 Fasilitas & Lab
         </button>
@@ -793,7 +797,7 @@
               </div>
             </div>
 
-            <div style="display: flex; gap: 12px; margin-bottom: 2rem;">
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 1.5rem;">
               <button class="btn btn-cyan" id="btn-export-json">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                 <span>Ekspor Cadangan Database (JSON)</span>
@@ -804,6 +808,18 @@
                 <span>Impor Data dari File JSON</span>
               </button>
               <input type="file" id="import-file-input" accept=".json" style="display: none;">
+
+              <button class="btn btn-glass" id="btn-export-config-js" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>💾 Unduh File config.js untuk GitHub</span>
+              </button>
+            </div>
+
+            <div style="background: rgba(0, 240, 255, 0.06); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: 12px; padding: 14px 18px; margin-bottom: 2rem;">
+              <h5 style="color: var(--neon-cyan); margin: 0 0 6px 0; font-size: 0.9rem;">💡 Tips Sinkronisasi ke Hosting GitHub & Website Sekolah:</h5>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0; line-height: 1.5;">
+                Setelah Anda mengubah data sekolah di Panel Admin ini, klik <strong>"💾 Unduh File config.js untuk GitHub"</strong> di atas. Lalu upload/replace file <code>config.js</code> hasil unduhan tersebut ke folder <code>js/</code> di repository GitHub Anda. Dengan begitu, seluruh siswa dan website sekolah (seperti widget di website utama) otomatis membaca data sekolah terbaru!
+              </p>
             </div>
 
             <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
@@ -826,16 +842,16 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/config.js"></script>
-  <script src="js/audio.js"></script>
-  <script src="js/hologram-3d.js"></script>
-  <script src="js/mascot-animated.js"></script>
-  <script src="js/human-avatar.js"></script>
-  <script src="js/voice.js"></script>
-  <script src="js/gemini.js"></script>
-  <script src="js/admin.js"></script>
-  <script src="js/embed-widget.js"></script>
-  <script src="js/camera-vision.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/config.js?v=20261020"></script>
+  <script src="js/audio.js?v=20261020"></script>
+  <script src="js/hologram-3d.js?v=20261020"></script>
+  <script src="js/mascot-animated.js?v=20261020"></script>
+  <script src="js/human-avatar.js?v=20261020"></script>
+  <script src="js/voice.js?v=20261020"></script>
+  <script src="js/gemini.js?v=20261020"></script>
+  <script src="js/admin.js?v=20261020"></script>
+  <script src="js/embed-widget.js?v=20261020"></script>
+  <script src="js/camera-vision.js?v=20261020"></script>
+  <script src="js/app.js?v=20261020"></script>
 </body>
 </html>

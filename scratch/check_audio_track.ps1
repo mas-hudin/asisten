@@ -1,0 +1,6 @@
+$bytes = [System.IO.File]::ReadAllBytes((Resolve-Path "assets/gemini_generated_video_45dea1c5.mp4"))
+$latin1 = [System.Text.Encoding]::GetEncoding("ISO-8859-1").GetString($bytes)
+Write-Host "Contains 'soun':" ($latin1.IndexOf("soun") -ge 0)
+Write-Host "Contains 'vide':" ($latin1.IndexOf("vide") -ge 0)
+Write-Host "Contains 'mp4a':" ($latin1.IndexOf("mp4a") -ge 0)
+Write-Host "Contains 'avc1':" ($latin1.IndexOf("avc1") -ge 0)

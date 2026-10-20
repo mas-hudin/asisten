@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+<pre id="log"></pre>
+<script>
+window.speechSynthesis.onvoiceschanged = () => {
+  const v = window.speechSynthesis.getVoices();
+  const idV = v.filter(x => x.lang.includes('id') || x.name.includes('Indonesia'));
+  document.getElementById('log').textContent = JSON.stringify(idV.map(x => ({ name: x.name, lang: x.lang })), null, 2);
+  console.log("Found voices:", idV.map(x => x.name));
+};
+setTimeout(() => {
+  if (!document.getElementById('log').textContent) {
+    const v = window.speechSynthesis.getVoices();
+    const idV = v.filter(x => x.lang.includes('id') || x.name.includes('Indonesia'));
+    document.getElementById('log').textContent = JSON.stringify(idV.map(x => ({ name: x.name, lang: x.lang })), null, 2);
+  }
+}, 1000);
+</script>
+</body>
+</html>

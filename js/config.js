@@ -17,7 +17,7 @@ const DEFAULT_SCHOOL_DATA = {
     motto: "Berakhlak Mulia, Unggul dalam Prestasi, Terampil dan Berwawasan Lingkungan",
     npsn: "20330335",
     accreditation: "A (Unggul)",
-    principal: "Haji PARYANTO, S.Pd.",
+    principal: "HAJI PARYANTO, S.Pd.",
     welcomeSpeech: "Selamat datang di portal informasi dan asisten cerdas SMP NEGERI 1 MIRIT, Kabupaten Kebumen. Kami berkomitmen menyelenggarakan pendidikan bermutu, ramah anak, dan membina generasi berprestasi berlandaskan profil pelajar Pancasila.",
     vision: "Terwujudnya peserta didik yang beriman, bertakwa, berakhlak mulia, berprestasi tinggi, berwawasan global, dan peduli lingkungan hidup.",
     mission: [
@@ -26,10 +26,10 @@ const DEFAULT_SCHOOL_DATA = {
       "Meningkatkan prestasi akademik dan non-akademik siswa di tingkat kabupaten, provinsi, hingga nasional.",
       "Menciptakan lingkungan sekolah yang asri, bersih, hijau, sehat, dan ramah anak."
     ],
-    address: "Jl. Raya Mirit, Kec. Mirit, Kab. Kebumen, Jawa Tengah 54395",
-    phone: "(0287) 6651-002",
+    address: "Jl. Pasar Senggol Mirit, Kec. Mirit, Kab. Kebumen, Jawa Tengah 54394",
+    phone: "(0287) 6651-020",
     whatsapp: "0812-2550-1980",
-    email: "smpnegeri1mirit@gmail.com",
+    email: "info@smpn1mirit.sch.id",
     website: "https://smpn1mirit.sch.id",
     operatingHours: "Senin - Kamis: 07.00 - 14.00 WIB | Jum'at : 07.00 - 11.00 dan Sabtu: 07.30 - 12.30 WIB (Kegiatan Pramuka & Ekstrakurikuler)"
   },
@@ -112,7 +112,7 @@ const DEFAULT_SCHOOL_DATA = {
   },
 
   teachers: [
-    { name: "Haji Paryanto, S.Pd.", role: "Kepala Sekolah", subject: "Manajemen Sekolah", contact: "kepsek@smpn1mirit.sch.id" },
+    { name: "HAJI PARYANTO, S.Pd.", role: "Kepala Sekolah", subject: "Manajemen Sekolah", contact: "kepsek@smpn1mirit.sch.id" },
     { name: "Ibu Siska, S.Pd.", role: "Duta Virtual & Guru Bahasa", subject: "Bahasa Indonesia & Literasi", contact: "siska@smpn1mirit.sch.id" },
     { name: "Budi Santoso, S.Pd.", role: "Wakasek Kurikulum", subject: "Matematika", contact: "kurikulum@smpn1mirit.sch.id" },
     { name: "Agus Prasetyo, S.Kom.", role: "Kepala Lab Komputer", subject: "Informatika / TIK", contact: "it@smpn1mirit.sch.id" },

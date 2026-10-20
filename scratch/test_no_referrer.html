@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="referrer" content="no-referrer">
+  <title>Test TTS No Referrer</title>
+</head>
+<body>
+  <h1>Test Audio</h1>
+  <button id="btn">Play Audio</button>
+  <p id="status">Ready</p>
+  <script>
+    const btn = document.getElementById('btn');
+    const status = document.getElementById('status');
+    btn.onclick = () => {
+      status.textContent = "Loading...";
+      const audio = new Audio("https://translate.google.com/translate_tts?ie=UTF-8&tl=id&client=tw-ob&q=Halo+saya+Ibu+Siska");
+      audio.onplay = () => { status.textContent = "Playing successfully!"; };
+      audio.onerror = (e) => { status.textContent = "Error: " + (audio.error ? audio.error.message : "unknown"); };
+      audio.onended = () => { status.textContent = "Ended successfully!"; };
+      audio.play().catch(err => { status.textContent = "Play catch: " + err.message; });
+    };
+  </script>
+</body>
+</html>

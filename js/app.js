@@ -1451,6 +1451,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Export config.js untuk GitHub
+  const btnExportConfig = document.getElementById('btn-export-config-js');
+  if (btnExportConfig) {
+    btnExportConfig.addEventListener('click', () => {
+      if (!adminMgr) return;
+      adminMgr.exportConfigFile();
+      showToast("File config.js berhasil diunduh! Upload file ini ke folder /js/ di GitHub.");
+    });
+  }
+
   // Import JSON Database
   const btnImport = document.getElementById('btn-import-json');
   const importFileInput = document.getElementById('import-file-input');

@@ -21,13 +21,19 @@ class SchoolAdminManager {
       const saved = localStorage.getItem(STORAGE_KEYS.SCHOOL_DATA);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed.profile && (parsed.profile.name.includes("UNGGULAN") || (parsed.profile.welcomeSpeech && parsed.profile.welcomeSpeech.includes("SMA")))) {
-          parsed.profile = DEFAULT_SCHOOL_DATA.profile;
-          parsed.ppdb = DEFAULT_SCHOOL_DATA.ppdb;
-          parsed.academic = DEFAULT_SCHOOL_DATA.academic;
-          parsed.teachers = DEFAULT_SCHOOL_DATA.teachers;
-          parsed.faqs = DEFAULT_SCHOOL_DATA.faqs;
-          parsed.announcements = DEFAULT_SCHOOL_DATA.announcements;
+        if (parsed.profile && (
+          parsed.profile.name.includes("UNGGULAN") || 
+          (parsed.profile.welcomeSpeech && parsed.profile.welcomeSpeech.includes("SMA")) ||
+          (parsed.profile.principal && parsed.profile.principal.includes("Masruroh"))
+        )) {
+          parsed.profile.principal = DEFAULT_SCHOOL_DATA.profile.principal;
+          if (parsed.teachers && Array.isArray(parsed.teachers)) {
+            parsed.teachers.forEach(t => {
+              if (t.role === "Kepala Sekolah" || (t.name && t.name.includes("Masruroh"))) {
+                t.name = DEFAULT_SCHOOL_DATA.profile.principal;
+              }
+            });
+          }
           localStorage.setItem(STORAGE_KEYS.SCHOOL_DATA, JSON.stringify(parsed));
         }
         return parsed;
@@ -57,8 +63,8 @@ class SchoolAdminManager {
           parsed.geminiModel = 'gemini-2.0-flash';
         }
         if (!parsed.robotName || parsed.robotName === 'Ibu Siska' || parsed.robotName.includes('Siska') || parsed.robotName === 'AURA' || parsed.robotName.includes('AURA')) {
-          parsed.robotName = 'ROBOT AI SPENSA';
-          parsed.robotTitle = 'Asisten Hologram AI Modern SMP Negeri 1 Mirit';
+          parsed.robotName = DEFAULT_SETTINGS.robotName;
+          parsed.robotTitle = DEFAULT_SETTINGS.robotTitle;
         }
         if (!parsed.welcomeGreeting || parsed.welcomeGreeting.includes("Siska") || parsed.welcomeGreeting.includes("AURA") || parsed.welcomeGreeting.includes("SMA UNGGULAN") || parsed.welcomeGreeting.includes("Unggulan") || parsed.welcomeGreeting.includes("Senang sekali bisa berjumpa")) {
           parsed.welcomeGreeting = DEFAULT_SETTINGS.welcomeGreeting;
@@ -135,6 +141,36 @@ class SchoolAdminManager {
     const a = document.createElement('a');
     a.href = url;
     a.download = `Data_Sekolah_AI_${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // Unduh File js/config.js Siap Upload ke GitHub
+  exportConfigFile() {
+    const content = `/**
+ * CONFIG & DEFAULT SCHOOL KNOWLEDGE BASE
+ * Otomatis di-generate dari Panel Admin Sekolah
+ * File ini menjadi database bawaan bagi seluruh pengunjung website sekolah / GitHub.
+ */
+
+const STORAGE_KEYS = {
+  SCHOOL_DATA: 'hologram_school_data_v1',
+  APP_SETTINGS: 'hologram_ai_settings_v1',
+  CHAT_HISTORY: 'hologram_chat_history_v1',
+  ADMIN_PIN: 'hologram_admin_pin_v1'
+};
+
+const DEFAULT_SCHOOL_DATA = ${JSON.stringify(this.schoolData, null, 2)};
+
+const DEFAULT_SETTINGS = ${JSON.stringify(this.settings, null, 2)};
+`;
+    const blob = new Blob([content], { type: 'application/javascript;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'config.js';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
