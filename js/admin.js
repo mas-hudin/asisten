@@ -149,6 +149,13 @@ class SchoolAdminManager {
 
   // Unduh File js/config.js Siap Upload ke GitHub
   exportConfigFile() {
+    const safeSettings = Object.assign({}, this.settings, {
+      githubToken: "",
+      geminiApiKey: "",
+      elevenLabsApiKey: "",
+      didApiKey: ""
+    });
+
     const content = `/**
  * CONFIG & DEFAULT SCHOOL KNOWLEDGE BASE
  * Otomatis di-generate dari Panel Admin Sekolah
@@ -164,7 +171,7 @@ const STORAGE_KEYS = {
 
 const DEFAULT_SCHOOL_DATA = ${JSON.stringify(this.schoolData, null, 2)};
 
-const DEFAULT_SETTINGS = ${JSON.stringify(this.settings, null, 2)};
+const DEFAULT_SETTINGS = ${JSON.stringify(safeSettings, null, 2)};
 `;
     const blob = new Blob([content], { type: 'application/javascript;charset=utf-8' });
     const url = URL.createObjectURL(blob);
@@ -228,7 +235,17 @@ const DEFAULT_SETTINGS = ${JSON.stringify(this.settings, null, 2)};
         sha = fileData.sha;
       }
 
-      // 2. Susun isi file config.js baru
+      // 2. Amankan settings: Hapus GitHub Token & API Key dari file yang di-commit ke repository publik
+      // agar tidak diblokir oleh proteksi keamanan GitHub Push Protection (Secret Scanning).
+      // Token & API Key tetap aman tersimpan di browser Admin Anda (localStorage).
+      const safeSettings = Object.assign({}, settings, {
+        githubToken: "",
+        geminiApiKey: "",
+        elevenLabsApiKey: "",
+        didApiKey: ""
+      });
+
+      // 3. Susun isi file config.js baru
       const content = `/**
  * CONFIG & DEFAULT SCHOOL KNOWLEDGE BASE
  * Otomatis di-update secara online dari Panel Admin Sekolah
@@ -245,7 +262,7 @@ const STORAGE_KEYS = {
 
 const DEFAULT_SCHOOL_DATA = ${JSON.stringify(data, null, 2)};
 
-const DEFAULT_SETTINGS = ${JSON.stringify(settings, null, 2)};
+const DEFAULT_SETTINGS = ${JSON.stringify(safeSettings, null, 2)};
 `;
 
       // 3. Encode base64 yang aman untuk UTF-8
