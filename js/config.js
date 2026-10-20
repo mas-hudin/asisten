@@ -127,12 +127,6 @@ const DEFAULT_SCHOOL_DATA = {
   },
   "teachers": [
     {
-      "name": "Dra. Siti Masruroh, M.Pd.",
-      "role": "Kepala Sekolah",
-      "subject": "Manajemen Sekolah",
-      "contact": "kepsek@smpn1mirit.sch.id"
-    },
-    {
       "name": "Ibu Siska, S.Pd.",
       "role": "Duta Virtual & Guru Bahasa",
       "subject": "Bahasa Indonesia & Literasi",
