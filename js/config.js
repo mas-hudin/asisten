@@ -18,7 +18,7 @@ const DEFAULT_SCHOOL_DATA = {
     "motto": "Berakhlak Mulia, Unggul dalam Prestasi, Terampil dan Berwawasan Lingkungan",
     "npsn": "20330335",
     "accreditation": "A (Unggul)",
-    "principal": "HAJI PARYANTO,SPd.",
+    "principal": "HAJI PARYANTO,S.Pd",
     "welcomeSpeech": "Selamat datang di portal informasi dan asisten cerdas SMP NEGERI 1 MIRIT, Kabupaten Kebumen. Kami berkomitmen menyelenggarakan pendidikan bermutu, ramah anak, dan membina generasi berprestasi berlandaskan profil pelajar Pancasila.",
     "vision": "Terwujudnya peserta didik yang beriman, bertakwa, berakhlak mulia, berprestasi tinggi, berwawasan global, dan peduli lingkungan hidup.",
     "mission": [
@@ -27,7 +27,7 @@ const DEFAULT_SCHOOL_DATA = {
       "Meningkatkan prestasi akademik dan non-akademik siswa di tingkat kabupaten, provinsi, hingga nasional.",
       "Menciptakan lingkungan sekolah yang asri, bersih, hijau, sehat, dan ramah anak."
     ],
-    "address": "Jl. Raya Mirit, Kec. Mirit, Kab. Kebumen, Jawa Tengah 54394",
+    "address": "Jl. Pasar Senggol Mirit, Kec. Mirit, Kab. Kebumen, Jawa Tengah 54394",
     "phone": "(0287) 6651-020",
     "whatsapp": "0812-2550-1980",
     "email": "info@smpn1mirit.sch.id",
@@ -127,6 +127,12 @@ const DEFAULT_SCHOOL_DATA = {
   },
   "teachers": [
     {
+      "name": "Dra. Siti Masruroh, M.Pd.",
+      "role": "Kepala Sekolah",
+      "subject": "Manajemen Sekolah",
+      "contact": "kepsek@smpn1mirit.sch.id"
+    },
+    {
       "name": "Ibu Siska, S.Pd.",
       "role": "Duta Virtual & Guru Bahasa",
       "subject": "Bahasa Indonesia & Literasi",
@@ -194,7 +200,7 @@ const DEFAULT_SETTINGS = {
   "robotTitle": "Asisten Hologram AI Modern SMP Negeri 1 Mirit",
   "schoolNameShort": "SMP Negeri 1 Mirit",
   "geminiApiKey": "",
-  "geminiModel": "gemini-2.0-flash",
+  "geminiModel": "gemini-flash-latest",
   "temperature": 0.65,
   "voiceEnabled": true,
   "voicePitch": 1,
