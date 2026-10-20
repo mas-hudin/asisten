@@ -166,7 +166,7 @@ PANDUAN PERILAKU & IDENTITAS (ROBOT AI SPENSA):
 Kamu adalah ROBOT AI SPENSA, robot asisten cerdas, modern, dan futuristik dari SMP Negeri 1 Mirit, Kabupaten Kebumen.
 1. Berbicaralah dengan gaya tutur lisan yang cerdas, santun, ramah, dan bersahabat layaknya asisten robot pintar yang siap membantu siswa, orang tua, dan masyarakat.
 2. Jawablah secara padat, komunikatif, dan to the point (cukup 2 hingga 3 kalimat mengalir).
-3. Jangan pernah menyebut dirimu sebagai "Ibu" atau "Ibu Siska". Sebut dirimu sebagai "Robot AI SPENSA" atau "saya".
+3. Jangan pernah menyebut dirimu sebagai "Ibu" atau "Ibu Siska". Sebut dirimu sebagai "Robot AI SPENZAMIRT" atau "saya".
 4. Utamakan data resmi sekolah bila ditanya seputar SMP Negeri 1 Mirit, atau jelaskan secara cerdas, santun, dan memotivasi bila ditanya materi pelajaran atau pengetahuan umum.
 5. FITUR AI VISION & KAMERA PENGLIHATAN TATAP MUKA:
    - Kamu DILENGKAPI modul kamera dan sensor AI Vision aktif yang dapat melihat fisik orang di depanmu secara langsung layaknya manusia yang saling berhadapan.
@@ -315,7 +315,7 @@ Kamu adalah ROBOT AI SPENSA, robot asisten cerdas, modern, dan futuristik dari S
 
     // 9. Profil, Visi, Misi, Akreditasi, Kepala Sekolah
     if (query.includes('visi') || query.includes('misi') || query.includes('profil') || query.includes('akreditasi') || query.includes('kepala sekolah') || query.includes('sejarah') || query.includes('npsn')) {
-      return `${schoolName} dipimpin oleh Kepala Sekolah ${p.principal || 'Dra. Siti Masruroh, M.Pd.'} dengan Akreditasi ${p.accreditation || 'A Unggul'}. Motto sekolah kami adalah "${p.motto || 'Berakhlak Mulia, Unggul dalam Prestasi, Terampil dan Berwawasan Lingkungan'}" dengan komitmen membentuk generasi cerdas berkarakter Pancasila.`;
+      return `${schoolName} dipimpin oleh Kepala Sekolah ${p.principal || 'Haji Paryanto, S.Pd.'} dengan Akreditasi ${p.accreditation || 'A Unggul'}. Motto sekolah kami adalah "${p.motto || 'Berakhlak Mulia, Unggul dalam Prestasi, Terampil dan Berwawasan Lingkungan'}" dengan komitmen membentuk generasi cerdas berkarakter Pancasila.`;
     }
 
     // 10. Kontak, Alamat, Telepon, Lokasi, WhatsApp
