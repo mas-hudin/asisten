@@ -8,7 +8,9 @@ const STORAGE_KEYS = {
   SCHOOL_DATA: 'hologram_school_data_v1',
   APP_SETTINGS: 'hologram_ai_settings_v1',
   CHAT_HISTORY: 'hologram_chat_history_v1',
-  ADMIN_PIN: 'hologram_admin_pin_v1'
+  ADMIN_PIN: 'hologram_admin_pin_v1',
+  GITHUB_TOKEN: 'hologram_github_token_v1',
+  GITHUB_REPO: 'hologram_github_repo_v1'
 };
 
 const DEFAULT_SCHOOL_DATA = {
@@ -177,6 +179,8 @@ const DEFAULT_SETTINGS = {
   elevenLabsApiKey: "",
   elevenLabsVoiceId: "",
   didApiKey: "",
+  githubToken: "",
+  githubRepo: "mas-hudin/asisten",
   welcomeGreeting: "Halo! Saya Robot Asisten Hologram AI SMP Negeri 1 Mirit. Ada yang bisa saya bantu hari ini seputar informasi sekolah?",
   systemPrompt: `Kamu adalah Robot Asisten Hologram AI modern, cerdas, dan futuristik dari SMP Negeri 1 Mirit, Kabupaten Kebumen, Jawa Tengah.
 Kamu berkomunikasi dengan santun, ramah, jelas, dan berwawasan luas.

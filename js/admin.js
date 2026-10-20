@@ -199,6 +199,86 @@ const DEFAULT_SETTINGS = ${JSON.stringify(this.settings, null, 2)};
     this.saveSettings(JSON.parse(JSON.stringify(DEFAULT_SETTINGS)));
   }
 
+  // Sinkronisasi otomatis online langsung ke GitHub Repository via GitHub API
+  async syncToGitHub(customData = null, customSettings = null) {
+    const data = customData || this.schoolData;
+    const settings = customSettings || this.settings;
+    const token = (settings.githubToken || localStorage.getItem(STORAGE_KEYS.GITHUB_TOKEN) || '').trim();
+    const repo = (settings.githubRepo || localStorage.getItem(STORAGE_KEYS.GITHUB_REPO) || 'mas-hudin/asisten').trim();
+
+    if (!token) {
+      return { success: false, noToken: true, message: "GitHub Token belum diisi di Panel Admin." };
+    }
+
+    try {
+      const path = 'js/config.js';
+      const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
+
+      // 1. Ambil info file saat ini untuk dapat SHA commit
+      const getRes = await fetch(apiUrl, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/vnd.github.v3+json'
+        }
+      });
+
+      let sha = null;
+      if (getRes.ok) {
+        const fileData = await getRes.json();
+        sha = fileData.sha;
+      }
+
+      // 2. Susun isi file config.js baru
+      const content = `/**
+ * CONFIG & DEFAULT SCHOOL KNOWLEDGE BASE
+ * Otomatis di-update secara online dari Panel Admin Sekolah
+ */
+
+const STORAGE_KEYS = {
+  SCHOOL_DATA: 'hologram_school_data_v1',
+  APP_SETTINGS: 'hologram_ai_settings_v1',
+  CHAT_HISTORY: 'hologram_chat_history_v1',
+  ADMIN_PIN: 'hologram_admin_pin_v1',
+  GITHUB_TOKEN: 'hologram_github_token_v1',
+  GITHUB_REPO: 'hologram_github_repo_v1'
+};
+
+const DEFAULT_SCHOOL_DATA = ${JSON.stringify(data, null, 2)};
+
+const DEFAULT_SETTINGS = ${JSON.stringify(settings, null, 2)};
+`;
+
+      // 3. Encode base64 yang aman untuk UTF-8
+      const encoded = btoa(unescape(encodeURIComponent(content)));
+
+      const putBody = {
+        message: 'Pembaruan data sekolah otomatis dari Panel Admin',
+        content: encoded
+      };
+      if (sha) putBody.sha = sha;
+
+      // 4. Kirim update ke GitHub API
+      const putRes = await fetch(apiUrl, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(putBody)
+      });
+
+      if (putRes.ok) {
+        return { success: true, message: `Berhasil! Data sekolah otomatis ter-upload ke GitHub (${repo}) dan langsung online di website sekolah!` };
+      } else {
+        const err = await putRes.json().catch(() => ({}));
+        return { success: false, message: `Gagal memperbarui file di GitHub: ${err.message || putRes.statusText}` };
+      }
+    } catch (e) {
+      return { success: false, message: `Koneksi ke GitHub API gagal: ${e.message}` };
+    }
+  }
+
   // Quick Test Gemini API Connection with Smart Discovery & Auto-Fallback
   async testGeminiConnection(apiKey, requestedModel) {
     if (!apiKey) return { success: false, message: "API Key masih kosong! Silakan isi API Key Anda dari Google AI Studio." };

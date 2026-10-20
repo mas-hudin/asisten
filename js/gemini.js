@@ -116,37 +116,10 @@ class GeminiSchoolAI {
       this.conversationHistory.push({ role: 'model', content: response });
       return response;
     } catch (error) {
-      console.warn("Gemini API call failed, analyzing error:", error);
-
-      // Auto-fallback: Jika model kehabisan kuota atau tidak ditemukan, coba alternatif model Flash aktif
-      const isRetryableError = 
-        error.message.includes('Quota exceeded') || 
-        error.message.includes('quota') || 
-        error.message.includes('429') || 
-        error.message.includes('not found') || 
-        error.message.includes('404') ||
-        error.message.includes('limit');
-
-      if (isRetryableError) {
-        const fallbackModels = ['gemini-2.0-flash', 'gemini-2.0-flash-lite', 'gemini-2.5-flash', 'gemini-1.5-flash']
-          .filter(m => m !== settings.geminiModel);
-
-        for (const altModel of fallbackModels) {
-          try {
-            console.log(`Auto-switching to ${altModel}...`);
-            const fallbackSettings = Object.assign({}, settings, { geminiModel: altModel });
-            const altResponse = await this.callGeminiAPI(userMessage, apiKey, fallbackSettings, imageBase64);
-            this.conversationHistory.push({ role: 'model', content: altResponse });
-            settings.geminiModel = altModel;
-            return altResponse;
-          } catch (eAlt) {
-            console.warn(`Fallback ${altModel} failed:`, eAlt.message);
-          }
-        }
-      }
-
-      // Jika koneksi internet putus / seluruh model kuotanya habis, jawab dengan data resmi sekolah
+      console.warn("Gemini API lambat/kuota habis, beralih seketika ke jawaban data resmi sekolah:", error.message);
+      // Langsung jawab seketika dari database sekolah tanpa menunggu jeda loop model lain
       const fallbackText = await this.generateSmartLocalResponse(userMessage);
+      this.conversationHistory.push({ role: 'model', content: fallbackText });
       return fallbackText;
     }
   }
@@ -219,22 +192,32 @@ Kamu adalah ROBOT AI SPENSA, robot asisten cerdas, modern, dan futuristik dari S
       generationConfig: generationConfig
     };
 
-    let response = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(requestBody)
-    });
+    const controller = new AbortController();
+    const timeoutTimer = setTimeout(() => controller.abort(), 5000);
 
-    // Jika model tidak mendukung thinkingBudget, kirim ulang tanpa thinkingConfig
-    if (!response.ok && requestBody.generationConfig.thinkingConfig) {
-      delete requestBody.generationConfig.thinkingConfig;
+    let response;
+    try {
       response = await fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody)
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody),
+        signal: controller.signal
       });
+
+      // Jika model tidak mendukung thinkingBudget, kirim ulang tanpa thinkingConfig
+      if (!response.ok && requestBody.generationConfig.thinkingConfig) {
+        delete requestBody.generationConfig.thinkingConfig;
+        response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestBody),
+          signal: controller.signal
+        });
+      }
+    } finally {
+      clearTimeout(timeoutTimer);
     }
 
     if (!response.ok) {
@@ -319,8 +302,8 @@ Kamu adalah ROBOT AI SPENSA, robot asisten cerdas, modern, dan futuristik dari S
     }
 
     // 10. Kontak, Alamat, Telepon, Lokasi, WhatsApp
-    if (query.includes('kontak') || query.includes('alamat') || query.includes('lokasi') || query.includes('telepon') || query.includes('whatsapp') || query.includes('email') || query.includes('wa') || query.includes('jam buka') || query.includes('dimana')) {
-      return `Kampus ${schoolName} beralamat di ${p.address || 'Jl. Pasar Senggol Mirit, Kebumen'}. Anda bisa menghubungi kami melalui telepon di ${p.phone || '(0287) 6651-020'} atau WhatsApp di ${p.whatsapp || '0812-2550-1980'}. Layanan kami buka setiap hari kerja pukul 07.00 hingga 15.30 WIB.`;
+    if (query.includes('kontak') || query.includes('alamat') || query.includes('lokasi') || query.includes('telepon') || query.includes('whatsapp') || query.includes('email') || query.includes('wa') || query.includes('jam buka') || query.includes('dimana') || query.includes('di mana')) {
+      return `Kampus ${schoolName} beralamat di ${p.address || 'Jl. Pasar Senggol Mirit, Kebumen'}. Anda bisa menghubungi kami melalui telepon di ${p.phone || '(0287) 6651-020'} atau WhatsApp di ${p.whatsapp || '0812-2550-1980'}. Jam layanan sekolah kami: ${p.operatingHours || 'Senin - Kamis: 07.00 - 14.00 WIB | Jum\'at : 07.00 - 11.00 dan Sabtu: 07.30 - 12.30 WIB'}.`;
     }
 
     // 11. Pengumuman / Berita

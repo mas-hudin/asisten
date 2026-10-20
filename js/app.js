@@ -1032,6 +1032,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setVal('adm-did-key', s.didApiKey);
     setVal('adm-welcome-greeting', s.welcomeGreeting);
     setVal('adm-system-prompt', s.systemPrompt);
+    setVal('adm-github-token', s.githubToken || '');
+    setVal('adm-github-repo', s.githubRepo || 'mas-hudin/asisten');
 
     renderEmbedSnippets();
   }
@@ -1267,9 +1269,29 @@ document.addEventListener('DOMContentLoaded', () => {
       s.didApiKey = getVal('adm-did-key');
       s.welcomeGreeting = getVal('adm-welcome-greeting');
       s.systemPrompt = getVal('adm-system-prompt');
+      s.githubToken = getVal('adm-github-token');
+      s.githubRepo = getVal('adm-github-repo') || 'mas-hudin/asisten';
 
       adminMgr.saveSchoolData(d);
       adminMgr.saveSettings(s);
+
+      // Jika GitHub Token sudah diisi, otomatis lakukan sinkronisasi online ke repository GitHub!
+      if (s.githubToken) {
+        showToast("Menyimpan & menyinkronkan otomatis ke hosting GitHub...");
+        adminMgr.syncToGitHub(d, s).then(res => {
+          if (res.success) {
+            showToast("✔ Data berhasil tersimpan & langsung online di GitHub!");
+            const resEl = document.getElementById('github-sync-result');
+            if (resEl) resEl.innerHTML = `<span style="color: var(--neon-emerald); font-weight: 600;">✔ ${res.message}</span>`;
+          } else {
+            showToast("⚠ Data tersimpan lokal. Gagal sinkron GitHub: " + res.message);
+            const resEl = document.getElementById('github-sync-result');
+            if (resEl) resEl.innerHTML = `<span style="color: var(--neon-rose); font-weight: 600;">❌ ${res.message}</span>`;
+          }
+        });
+      } else {
+        showToast("Perubahan data sekolah berhasil disimpan!");
+      }
     });
   }
 
@@ -1458,6 +1480,37 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!adminMgr) return;
       adminMgr.exportConfigFile();
       showToast("File config.js berhasil diunduh! Upload file ini ke folder /js/ di GitHub.");
+    });
+  }
+
+  // Tombol Sinkronkan ke GitHub Sekarang
+  const btnSyncNow = document.getElementById('btn-sync-github-now');
+  if (btnSyncNow) {
+    btnSyncNow.addEventListener('click', async () => {
+      if (!adminMgr) return;
+      const syncResult = document.getElementById('github-sync-result');
+      const token = (document.getElementById('adm-github-token') ? document.getElementById('adm-github-token').value : '').trim();
+      const repo = (document.getElementById('adm-github-repo') ? document.getElementById('adm-github-repo').value : 'mas-hudin/asisten').trim();
+
+      if (!token) {
+        if (syncResult) syncResult.innerHTML = '<span style="color: var(--neon-rose);">Silakan isi GitHub Personal Access Token terlebih dahulu.</span>';
+        return;
+      }
+
+      adminMgr.settings.githubToken = token;
+      adminMgr.settings.githubRepo = repo;
+      adminMgr.saveSettings(adminMgr.settings);
+
+      if (syncResult) syncResult.innerHTML = '<span style="color: var(--neon-cyan);">Menghubungi GitHub API & melakukan commit online...</span>';
+      const res = await adminMgr.syncToGitHub(adminMgr.schoolData, adminMgr.settings);
+      if (syncResult) {
+        if (res.success) {
+          syncResult.innerHTML = `<span style="color: var(--neon-emerald); font-weight: 600;">✔ ${res.message}</span>`;
+          showToast("Data sekolah berhasil online ke GitHub!");
+        } else {
+          syncResult.innerHTML = `<span style="color: var(--neon-rose); font-weight: 600;">❌ ${res.message}</span>`;
+        }
+      }
     });
   }
 

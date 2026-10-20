@@ -815,11 +815,40 @@
               </button>
             </div>
 
-            <div style="background: rgba(0, 240, 255, 0.06); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: 12px; padding: 14px 18px; margin-bottom: 2rem;">
-              <h5 style="color: var(--neon-cyan); margin: 0 0 6px 0; font-size: 0.9rem;">💡 Tips Sinkronisasi ke Hosting GitHub & Website Sekolah:</h5>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0; line-height: 1.5;">
-                Setelah Anda mengubah data sekolah di Panel Admin ini, klik <strong>"💾 Unduh File config.js untuk GitHub"</strong> di atas. Lalu upload/replace file <code>config.js</code> hasil unduhan tersebut ke folder <code>js/</code> di repository GitHub Anda. Dengan begitu, seluruh siswa dan website sekolah (seperti widget di website utama) otomatis membaca data sekolah terbaru!
+            <!-- AUTO-SYNC GITHUB LANGSUNG ONLINE -->
+            <div style="background: rgba(0, 240, 255, 0.05); border: 1.5px solid var(--neon-cyan); border-radius: 14px; padding: 18px 20px; margin-bottom: 2rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <h4 style="color: var(--neon-cyan); margin: 0; font-size: 0.98rem; display: flex; align-items: center; gap: 8px;">
+                  <span>🌐</span> Sinkronisasi Otomatis Online (Langsung Aktif di Website)
+                </h4>
+                <span style="background: rgba(16, 185, 129, 0.15); color: var(--neon-emerald); border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.72rem; padding: 3px 10px; border-radius: 999px;">
+                  Auto-Update Realtime
+                </span>
+              </div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5;">
+                Dengan menghubungkan <strong>GitHub Token</strong> di bawah ini, setiap kali Anda klik tombol <strong>"Simpan Semua Perubahan"</strong> di atas, sistem akan <strong>otomatis meng-update file di GitHub</strong> tanpa Anda perlu membuka GitHub atau upload file manual lagi!
               </p>
+
+              <div class="form-grid" style="grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px;">
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label style="font-size: 0.78rem;">GitHub Repository (Username/Repo):</label>
+                  <input type="text" id="adm-github-repo" class="form-input" placeholder="mas-hudin/asisten" value="mas-hudin/asisten">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label style="font-size: 0.78rem;">GitHub Personal Access Token (PAT):</label>
+                  <input type="password" id="adm-github-token" class="form-input" placeholder="ghp_xxxxxxxxxxxx atau github_pat_xxxx">
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                <div style="font-size: 0.74rem; color: var(--text-dim); max-width: 65%;">
+                  💡 <em>Cara buat token: Buka <strong>github.com/settings/tokens</strong> ➔ Generate new token (classic) ➔ Beri nama bebas & centang izin <strong>repo</strong> ➔ Generate ➔ Salin kodenya ke sini.</em>
+                </div>
+                <button class="btn btn-cyan" id="btn-sync-github-now" style="font-size: 0.82rem; padding: 8px 16px;">
+                  🚀 Sinkronkan ke GitHub Sekarang
+                </button>
+              </div>
+              <div id="github-sync-result" style="margin-top: 10px; font-size: 0.82rem;"></div>
             </div>
 
             <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
