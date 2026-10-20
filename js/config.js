@@ -200,7 +200,7 @@ const DEFAULT_SETTINGS = {
   "robotTitle": "Asisten Hologram AI Modern SMP Negeri 1 Mirit",
   "schoolNameShort": "SMP Negeri 1 Mirit",
   "geminiApiKey": "",
-  "geminiModel": "gemini-flash-latest",
+  "geminiModel": "gemini-2.0-flash",
   "temperature": 0.65,
   "voiceEnabled": true,
   "voicePitch": 1,
