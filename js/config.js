@@ -35,7 +35,7 @@ const DEFAULT_SCHOOL_DATA = {
     "operatingHours": "Senin - Jumat: 07.00 - 15.30 WIB | Sabtu: 07.30 - 12.00 WIB (Kegiatan Pramuka & Ekstrakurikuler)"
   },
   "ppdb": {
-    "status": "DIBUKA (Tahun Ajaran 2026/2027)",
+    "status": "DITUTUP",
     "currentWave": "Penerimaan Peserta Didik Baru (PPDB) Daring",
     "registrationPeriod": "15 Mei 2026 - 30 Juni 2026",
     "registrationLink": "https://ppdb.smpn1mirit.sch.id",
@@ -127,12 +127,6 @@ const DEFAULT_SCHOOL_DATA = {
   },
   "teachers": [
     {
-      "name": "Dra. Siti Masruroh, M.Pd.",
-      "role": "Kepala Sekolah",
-      "subject": "Manajemen Sekolah",
-      "contact": "kepsek@smpn1mirit.sch.id"
-    },
-    {
       "name": "Ibu Siska, S.Pd.",
       "role": "Duta Virtual & Guru Bahasa",
       "subject": "Bahasa Indonesia & Literasi",
@@ -200,7 +194,7 @@ const DEFAULT_SETTINGS = {
   "robotTitle": "Asisten Hologram AI Modern SMP Negeri 1 Mirit",
   "schoolNameShort": "SMP Negeri 1 Mirit",
   "geminiApiKey": "",
-  "geminiModel": "gemini-2.0-flash",
+  "geminiModel": "gemini-flash-lite-latest",
   "temperature": 0.65,
   "voiceEnabled": true,
   "voicePitch": 1,
