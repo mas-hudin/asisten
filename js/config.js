@@ -145,7 +145,7 @@ const DEFAULT_SETTINGS = {
   "schoolNameShort": "SMP Negeri 1 Mirit",
   "aiProvider": "groq",
   "groqApiKey": "",
-  "groqModel": "openai/gpt-oss-120b",
+  "groqModel": "qwen/qwen3.8-27b",
   "geminiApiKey": "",
   "geminiModel": "gemini-2.0-flash",
   "temperature": 0.65,
